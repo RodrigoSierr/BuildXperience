@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuildXperience - Hardware de Alto Rendimiento</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>BuildXperience</h1>
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Menú">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links">
+                <a href="#inicio">Inicio</a>
+                <a href="productos.html">Productos</a>
+                <a href="#destacados">Destacados</a>
+                <a href="#contacto">Contacto</a>
+                <div class="auth-nav">
+                    <a href="login.html" class="login-button" id="loginButton">
+                        <i class="fas fa-user"></i>
+                        <span>Iniciar Sesión</span>
+                    </a>
+                    <div class="user-menu" id="userMenu" style="display: none;">
+                        <span class="user-email"></span>
+                        <a href="#" class="menu-item">Mi Perfil</a>
+                        <a href="#" class="menu-item">Mis Pedidos</a>
+                        <a href="#" class="menu-item" id="logoutButton">Cerrar Sesión</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="inicio">
+            <h2>Potencia tu Experiencia Gaming</h2>
+            <p>Descubre nuestra selección de componentes de alto rendimiento para gaming y creación de contenido</p>
+            <div class="hero-buttons">
+                <a href="productos.html" class="cta-button">Explorar Productos</a>
+                <a href="#destacados" class="secondary-button">Ver Destacados</a>
+            </div>
+        </section>
+
+        <section class="products" id="destacados">
+            <h2>Productos Destacados</h2>
+            <div class="products-grid">
+                <!-- Tarjeta Gráfica Recomendada -->
+                <div class="product-card">
+                    <div class="product-badge">Nuevo</div>
+                    <img src="Imágenes/Tarjetas Gráficas/NVIDIA RTX 4070.jpg" alt="RTX 4070">
+                    <h3>NVIDIA RTX 4070</h3>
+                    <p class="price">$599.99</p>
+                    <p class="description">12GB GDDR6X, Ray Tracing, DLSS 3.0 - La nueva generación de gaming</p>
+                    <a href="https://www.nvidia.com" class="buy-button" target="_blank">
+                        <i class="fas fa-shopping-cart"></i>
+                        Comprar Ahora
+                    </a>
+                </div>
+
+                <!-- RAM Recomendada -->
+                <div class="product-card">
+                    <div class="product-badge">Destacado</div>
+                    <img src="Imágenes/Memoria RAM/G.Skill Trident Z5 RGB.webp" alt="RAM DDR5">
+                    <h3>G.Skill Trident Z5 RGB</h3>
+                    <p class="price">$199.99</p>
+                    <p class="description">32GB DDR5 6000MHz - Rendimiento extremo con iluminación RGB</p>
+                    <a href="https://www.gskill.com" class="buy-button" target="_blank">
+                        <i class="fas fa-shopping-cart"></i>
+                        Comprar Ahora
+                    </a>
+                </div>
+
+                <!-- Procesador Recomendado -->
+                <div class="product-card">
+                    <div class="product-badge">Oferta</div>
+                    <img src="Imágenes/Procesadores/AMD Ryzen 7 7800X3D.webp" alt="Ryzen 7">
+                    <h3>AMD Ryzen 7 7800X3D</h3>
+                    <p class="price">$449.99</p>
+                    <p class="description">8 núcleos, 16 hilos, 5.0GHz - Domina todos tus juegos</p>
+                    <a href="https://www.amd.com" class="buy-button" target="_blank">
+                        <i class="fas fa-shopping-cart"></i>
+                        Comprar Ahora
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <i class="fas fa-truck-fast"></i>
+                <h3>Envío Rápido</h3>
+                <p>Entrega en 24-48 horas en toda España</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-shield-halved"></i>
+                <h3>Garantía Extendida</h3>
+                <p>3 años de garantía en todos nuestros productos</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-headset"></i>
+                <h3>Soporte 24/7</h3>
+                <p>Asistencia técnica disponible en todo momento</p>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contacto">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-envelope"></i> info@buildxperience.com</p>
+                <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+                <p><i class="fas fa-map-marker-alt"></i> Madrid, España</p>
+            </div>
+            <div class="footer-section">
+                <h3>Síguenos</h3>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Soporte</h3>
+                <a href="#">Centro de Ayuda</a>
+                <a href="#">Garantía</a>
+                <a href="#">Devoluciones</a>
+                <a href="#">Preguntas Frecuentes</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 BuildXperience. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="mobile.js"></script>
+</body>
+</html> 
