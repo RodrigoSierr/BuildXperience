@@ -27,6 +27,10 @@
                         <span>Iniciar Sesión</span>
                     </a>
                 </div>
+                <a href="cart.html" class="cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cartCount" class="cart-count">0</span>
+                </a>
             </div>
         </nav>
     </header>
@@ -105,7 +109,7 @@
 
         <section class="products-grid">
             <!-- Tarjetas Gráficas -->
-            <div class="product-card" data-category="tarjetas-graficas">
+            <div class="product-card" data-category="tarjetas-graficas" data-id="gpu-1">
                 <div class="product-badge" data-badge="nuevo">Nuevo</div>
                 <div class="product-image">
                     <img src="Imágenes/Tarjetas Gráficas/NVIDIA RTX 4090.jpg" alt="RTX 4090">
@@ -133,7 +137,7 @@
                 </div>
             </div>
 
-            <div class="product-card" data-category="tarjetas-graficas">
+            <div class="product-card" data-category="tarjetas-graficas" data-id="gpu-2">
                 <div class="product-badge" data-badge="destacado">Destacado</div>
                 <div class="product-image">
                     <img src="Imágenes/Tarjetas Gráficas/NVIDIA RTX 4080.jpg" alt="RTX 4080">
@@ -161,7 +165,7 @@
                 </div>
             </div>
 
-            <div class="product-card" data-category="tarjetas-graficas">
+            <div class="product-card" data-category="tarjetas-graficas" data-id="gpu-3">
                 <div class="product-badge" data-badge="oferta">Oferta</div>
                 <div class="product-image">
                     <img src="Imágenes/Tarjetas Gráficas/AMD RX 7900 XTX.webp" alt="RX 7900 XTX">
@@ -189,7 +193,7 @@
                 </div>
             </div>
 
-            <div class="product-card" data-category="tarjetas-graficas">
+            <div class="product-card" data-category="tarjetas-graficas" data-id="gpu-4">
                 <div class="product-badge" data-badge="nuevo">Nuevo</div>
                 <div class="product-image">
                     <img src="Imágenes/Tarjetas Gráficas/NVIDIA RTX 4070 Ti.webp" alt="RTX 4070 Ti">
@@ -217,7 +221,7 @@
                 </div>
             </div>
 
-            <div class="product-card" data-category="tarjetas-graficas">
+            <div class="product-card" data-category="tarjetas-graficas" data-id="gpu-5">
                 <div class="product-badge" data-badge="destacado">Destacado</div>
                 <div class="product-image">
                     <img src="Imágenes/Tarjetas Gráficas/AMD RX 7900 XT.png" alt="RX 7900 XT">
@@ -246,7 +250,7 @@
             </div>
 
             <!-- Procesadores -->
-            <div class="product-card" data-category="procesadores">
+            <div class="product-card" data-category="procesadores" data-id="cpu-1">
                 <div class="product-badge" data-badge="nuevo">Nuevo</div>
                 <div class="product-image">
                     <img src="Imágenes/Procesadores/Intel Core i9-14900K.webp" alt="Intel i9">
@@ -274,7 +278,7 @@
                 </div>
             </div>
 
-            <div class="product-card" data-category="procesadores">
+            <div class="product-card" data-category="procesadores" data-id="cpu-2">
                 <div class="product-badge" data-badge="destacado">Destacado</div>
                 <div class="product-image">
                     <img src="Imágenes/Procesadores/AMD Ryzen 9 7950X3D.jpeg" alt="Ryzen 9">
@@ -302,7 +306,7 @@
                 </div>
             </div>
 
-            <div class="product-card" data-category="procesadores">
+            <div class="product-card" data-category="procesadores" data-id="cpu-3">
                 <div class="product-badge" data-badge="oferta">Oferta</div>
                 <div class="product-image">
                     <img src="Imágenes/Procesadores/Intel Core i7-14700K.jpeg" alt="Intel i7">
@@ -330,7 +334,7 @@
                 </div>
             </div>
 
-            <div class="product-card" data-category="procesadores">
+            <div class="product-card" data-category="procesadores" data-id="cpu-4">
                 <div class="product-badge" data-badge="nuevo">Nuevo</div>
                 <div class="product-image">
                     <img src="Imágenes/Procesadores/AMD Ryzen 7 7800X3D.webp" alt="Ryzen 7">
@@ -359,7 +363,7 @@
             </div>
 
             <!-- Memoria RAM -->
-            <div class="product-card" data-category="memoria-ram">
+            <div class="product-card" data-category="memoria-ram" data-id="ram-1">
                 <div class="product-badge" data-badge="nuevo">Nuevo</div>
                 <div class="product-image">
                     <img src="Imágenes/Memoria RAM/Corsair Dominator Platinum RGB.jpg" alt="Corsair RAM">
@@ -387,7 +391,7 @@
                 </div>
             </div>
 
-            <div class="product-card" data-category="memoria-ram">
+            <div class="product-card" data-category="memoria-ram" data-id="ram-2">
                 <div class="product-badge" data-badge="destacado">Destacado</div>
                 <div class="product-image">
                     <img src="Imágenes/Memoria RAM/G.Skill Trident Z5 RGB.webp" alt="G.Skill RAM">
@@ -415,7 +419,7 @@
                 </div>
             </div>
 
-            <div class="product-card" data-category="memoria-ram">
+            <div class="product-card" data-category="memoria-ram" data-id="ram-3">
                 <div class="product-badge" data-badge="oferta">Oferta</div>
                 <div class="product-image">
                     <img src="Imágenes/Memoria RAM/Kingston Fury Beast DDR5.jpg" alt="Kingston RAM">
@@ -443,7 +447,7 @@
                 </div>
             </div>
 
-            <div class="product-card" data-category="memoria-ram">
+            <div class="product-card" data-category="memoria-ram" data-id="ram-4">
                 <div class="product-badge" data-badge="nuevo">Nuevo</div>
                 <div class="product-image">
                     <img src="Imágenes/Memoria RAM/Crucial Pro DDR5.jpg" alt="Crucial RAM">
@@ -472,7 +476,7 @@
             </div>
 
             <!-- Almacenamiento -->
-            <div class="product-card" data-category="almacenamiento">
+            <div class="product-card" data-category="almacenamiento" data-id="ssd-1">
                 <div class="product-badge" data-badge="nuevo">Nuevo</div>
                 <div class="product-image">
                     <img src="Imágenes/Almacenamiento/Samsung 990 Pro.jpg" alt="SSD Samsung">
@@ -500,7 +504,7 @@
                 </div>
             </div>
 
-            <div class="product-card" data-category="almacenamiento">
+            <div class="product-card" data-category="almacenamiento" data-id="ssd-2">
                 <div class="product-badge" data-badge="destacado">Destacado</div>
                 <div class="product-image">
                     <img src="Imágenes/Almacenamiento/WD Black SN850X.jpg" alt="SSD WD">
@@ -528,7 +532,7 @@
                 </div>
             </div>
 
-            <div class="product-card" data-category="almacenamiento">
+            <div class="product-card" data-category="almacenamiento" data-id="ssd-3">
                 <div class="product-badge" data-badge="oferta">Oferta</div>
                 <div class="product-image">
                     <img src="Imágenes/Almacenamiento/Crucial P5 Plus.webp" alt="SSD Crucial">
@@ -557,7 +561,7 @@
             </div>
 
             <!-- Placas Base -->
-            <div class="product-card" data-category="placas-base">
+            <div class="product-card" data-category="placas-base" data-id="mb-1">
                 <div class="product-badge" data-badge="nuevo">Nuevo</div>
                 <div class="product-image">
                     <img src="Imágenes/Placas Base/ASUS ROG Maximus Z790.jpeg" alt="ASUS ROG">
@@ -585,7 +589,7 @@
                 </div>
             </div>
 
-            <div class="product-card" data-category="placas-base">
+            <div class="product-card" data-category="placas-base" data-id="mb-2">
                 <div class="product-badge" data-badge="destacado">Destacado</div>
                 <div class="product-image">
                     <img src="Imágenes/Placas Base/MSI MEG X670E ACE.webp" alt="MSI MEG">
@@ -613,7 +617,7 @@
                 </div>
             </div>
 
-            <div class="product-card" data-category="placas-base">
+            <div class="product-card" data-category="placas-base" data-id="mb-3">
                 <div class="product-badge" data-badge="oferta">Oferta</div>
                 <div class="product-image">
                     <img src="Imágenes/Placas Base/Gigabyte X670E Aorus Master.webp" alt="Gigabyte Aorus">
@@ -642,7 +646,7 @@
             </div>
 
             <!-- Refrigeración -->
-            <div class="product-card" data-category="refrigeracion">
+            <div class="product-card" data-category="refrigeracion" data-id="cool-1">
                 <div class="product-badge" data-badge="nuevo">Nuevo</div>
                 <div class="product-image">
                     <img src="Imágenes/Refrigeración/NZXT Kraken Z73.jpg" alt="NZXT AIO">
@@ -670,7 +674,7 @@
                 </div>
             </div>
 
-            <div class="product-card" data-category="refrigeracion">
+            <div class="product-card" data-category="refrigeracion" data-id="cool-2">
                 <div class="product-badge" data-badge="destacado">Destacado</div>
                 <div class="product-image">
                     <img src="Imágenes/Refrigeración/Noctua NH-D15.jpg" alt="Noctua Air">
@@ -698,7 +702,7 @@
                 </div>
             </div>
 
-            <div class="product-card" data-category="refrigeracion">
+            <div class="product-card" data-category="refrigeracion" data-id="cool-3">
                 <div class="product-badge" data-badge="oferta">Oferta</div>
                 <div class="product-image">
                     <img src="Imágenes/Refrigeración/Corsair iCUE H150i Elite.webp" alt="Corsair AIO">
@@ -770,5 +774,6 @@
     <script src="productos.js"></script>
     <script src="auth.js"></script>
     <script src="mobile.js"></script>
+    <script src="cart.js"></script>
 </body>
 </html> 

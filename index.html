@@ -33,6 +33,10 @@
                         <a href="#" class="menu-item" id="logoutButton">Cerrar Sesión</a>
                     </div>
                 </div>
+                <a href="cart.html" class="cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cartCount" class="cart-count">0</span>
+                </a>
             </div>
         </nav>
     </header>
@@ -57,10 +61,15 @@
                     <h3>NVIDIA RTX 4070</h3>
                     <p class="price">$599.99</p>
                     <p class="description">12GB GDDR6X, Ray Tracing, DLSS 3.0 - La nueva generación de gaming</p>
-                    <a href="https://www.nvidia.com" class="buy-button" target="_blank">
+                    <button class="buy-button" onclick="addToCartAndRedirect({
+                        id: 'gpu-6',
+                        name: 'NVIDIA RTX 4070',
+                        price: 599.99,
+                        image: 'Imágenes/Tarjetas Gráficas/NVIDIA RTX 4070.jpg'
+                    })">
                         <i class="fas fa-shopping-cart"></i>
                         Comprar Ahora
-                    </a>
+                    </button>
                 </div>
 
                 <!-- RAM Recomendada -->
@@ -70,10 +79,15 @@
                     <h3>G.Skill Trident Z5 RGB</h3>
                     <p class="price">$199.99</p>
                     <p class="description">32GB DDR5 6000MHz - Rendimiento extremo con iluminación RGB</p>
-                    <a href="https://www.gskill.com" class="buy-button" target="_blank">
+                    <button class="buy-button" onclick="addToCartAndRedirect({
+                        id: 'ram-2',
+                        name: 'G.Skill Trident Z5 RGB',
+                        price: 199.99,
+                        image: 'Imágenes/Memoria RAM/G.Skill Trident Z5 RGB.webp'
+                    })">
                         <i class="fas fa-shopping-cart"></i>
                         Comprar Ahora
-                    </a>
+                    </button>
                 </div>
 
                 <!-- Procesador Recomendado -->
@@ -83,10 +97,33 @@
                     <h3>AMD Ryzen 7 7800X3D</h3>
                     <p class="price">$449.99</p>
                     <p class="description">8 núcleos, 16 hilos, 5.0GHz - Domina todos tus juegos</p>
-                    <a href="https://www.amd.com" class="buy-button" target="_blank">
+                    <button class="buy-button" onclick="addToCartAndRedirect({
+                        id: 'cpu-4',
+                        name: 'AMD Ryzen 7 7800X3D',
+                        price: 449.99,
+                        image: 'Imágenes/Procesadores/AMD Ryzen 7 7800X3D.webp'
+                    })">
                         <i class="fas fa-shopping-cart"></i>
                         Comprar Ahora
-                    </a>
+                    </button>
+                </div>
+
+                <!-- Nuevo producto destacado -->
+                <div class="product-card">
+                    <div class="product-badge">Nuevo</div>
+                    <img src="Imágenes/Tarjetas Gráficas/NVIDIA RTX 4070 Ti.webp" alt="RTX 4070 Ti">
+                    <h3>NVIDIA RTX 4070 Ti</h3>
+                    <p class="price">$799.99</p>
+                    <p class="description">12GB GDDR6X, DLSS 3.0, Ray Tracing - Rendimiento excepcional</p>
+                    <button class="buy-button" onclick="addToCartAndRedirect({
+                        id: 'gpu-4',
+                        name: 'NVIDIA RTX 4070 Ti',
+                        price: 799.99,
+                        image: 'Imágenes/Tarjetas Gráficas/NVIDIA RTX 4070 Ti.webp'
+                    })">
+                        <i class="fas fa-shopping-cart"></i>
+                        Comprar Ahora
+                    </button>
                 </div>
             </div>
         </section>
@@ -142,5 +179,31 @@
 
     <script src="auth.js"></script>
     <script src="mobile.js"></script>
+    <script>
+        function addToCartAndRedirect(product) {
+            // Obtener el carrito actual o crear uno nuevo
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Verificar si el producto ya está en el carrito
+            const existingItem = cart.find(item => item.id === product.id);
+            
+            if (existingItem) {
+                // Si el producto ya existe, incrementar la cantidad
+                existingItem.quantity += 1;
+            } else {
+                // Si no existe, añadirlo al carrito
+                cart.push({
+                    ...product,
+                    quantity: 1
+                });
+            }
+            
+            // Guardar el carrito actualizado
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Redirigir a la página del carrito
+            window.location.href = 'cart.html';
+        }
+    </script>
 </body>
 </html> 

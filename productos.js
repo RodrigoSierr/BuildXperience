@@ -1,53 +1,87 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar el carrito
+    const cart = new Cart();
+
+    // Añadir event listeners a los botones de "Añadir al carrito"
+    document.querySelectorAll('.product-button').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const productCard = e.target.closest('.product-card');
+            if (productCard) {
+                const product = {
+                    id: productCard.dataset.id,
+                    name: productCard.querySelector('.product-name').textContent,
+                    price: parseFloat(productCard.querySelector('.product-price').textContent.replace('$', '')),
+                    image: productCard.querySelector('.product-image').src
+                };
+                cart.addItem(product);
+            }
+        });
+    });
+
+    // Filtros y búsqueda
     const filterButtons = document.querySelectorAll('.filter-button');
+    const searchInput = document.getElementById('searchInput');
+    const sortSelect = document.getElementById('sortSelect');
     const productCards = document.querySelectorAll('.product-card');
     const filtersContainer = document.querySelector('.products-filters');
     let lastScrollTop = 0;
     let isScrollingDown = false;
 
     // Función para filtrar productos
-    function filterProducts(category) {
+    function filterProducts() {
+        const selectedCategory = document.querySelector('.filter-button.active').dataset.category;
+        const searchTerm = searchInput.value.toLowerCase();
+        const sortValue = sortSelect.value;
+
         productCards.forEach(card => {
-            if (category === 'todos') {
-                // Mostrar con animación
-                card.style.display = 'flex';
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'scale(1)';
-                }, 50);
-            } else {
-                if (card.dataset.category === category) {
-                    // Mostrar con animación
-                    card.style.display = 'flex';
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'scale(1)';
-                    }, 50);
-                } else {
-                    // Ocultar con animación
-                    card.style.opacity = '0';
-                    card.style.transform = 'scale(0.8)';
-                    setTimeout(() => {
-                        card.style.display = 'none';
-                    }, 300);
-                }
+            const category = card.dataset.category;
+            const name = card.querySelector('.product-name').textContent.toLowerCase();
+            const description = card.querySelector('.product-description').textContent.toLowerCase();
+            
+            const matchesCategory = selectedCategory === 'todos' || category === selectedCategory;
+            const matchesSearch = name.includes(searchTerm) || description.includes(searchTerm);
+            
+            card.style.display = matchesCategory && matchesSearch ? 'block' : 'none';
+        });
+
+        // Ordenar productos
+        const visibleCards = Array.from(productCards).filter(card => card.style.display !== 'none');
+        const sortedCards = visibleCards.sort((a, b) => {
+            const priceA = parseFloat(a.querySelector('.product-price').textContent.replace('$', ''));
+            const priceB = parseFloat(b.querySelector('.product-price').textContent.replace('$', ''));
+            const nameA = a.querySelector('.product-name').textContent;
+            const nameB = b.querySelector('.product-name').textContent;
+
+            switch(sortValue) {
+                case 'precio-asc':
+                    return priceA - priceB;
+                case 'precio-desc':
+                    return priceB - priceA;
+                case 'nombre-asc':
+                    return nameA.localeCompare(nameB);
+                case 'nombre-desc':
+                    return nameB.localeCompare(nameA);
+                default:
+                    return 0;
             }
         });
+
+        // Reordenar en el DOM
+        const productsGrid = document.querySelector('.products-grid');
+        sortedCards.forEach(card => productsGrid.appendChild(card));
     }
 
-    // Event listeners para los botones de filtro
+    // Event listeners para filtros
     filterButtons.forEach(button => {
         button.addEventListener('click', function() {
-            // Remover clase active de todos los botones
             filterButtons.forEach(btn => btn.classList.remove('active'));
-            // Agregar clase active al botón clickeado
             this.classList.add('active');
-
-            // Obtener la categoría del botón
-            const category = this.dataset.category;
-            filterProducts(category);
+            filterProducts();
         });
     });
+
+    searchInput.addEventListener('input', filterProducts);
+    sortSelect.addEventListener('change', filterProducts);
 
     // Control de visibilidad de las categorías basado en el scroll
     window.addEventListener('scroll', function() {
