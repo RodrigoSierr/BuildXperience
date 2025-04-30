@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const passwordInput = document.getElementById('password');
     const loginButton = document.getElementById('loginButton');
     const userMenu = document.getElementById('userMenu');
+    const accountButton = document.getElementById('accountButton');
+    const accountDropdown = document.getElementById('accountDropdown');
+    const logoutButton = document.getElementById('logoutButton');
 
     // Mostrar/ocultar contraseña
     if (togglePassword) {
@@ -16,36 +19,55 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Manejo del formulario de inicio de sesión
-    if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const remember = document.getElementById('remember').checked;
-            const username = document.getElementById('username').value;
+    // Verificar estado de la sesión al cargar
+    const userData = getUserData();
+    updateUserInterface(userData);
 
-            // Simulación de inicio de sesión
-            simulateLogin(email, password, remember, username);
+    // Si estamos en login.html y el usuario ya está autenticado, redirigir a perfil
+    if (window.location.pathname.includes('login.html') && userData) {
+        window.location.replace('perfil.html');
+        return;
+    }
+
+    // Si estamos en perfil.html y no hay usuario autenticado, redirigir a login
+    if (window.location.pathname.includes('perfil.html') && !userData) {
+        window.location.replace('login.html');
+        return;
+    }
+
+    // Mostrar/ocultar menú de cuenta
+    if (accountButton && accountDropdown) {
+        accountButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (!userData) {
+                window.location.href = 'login.html';
+                return;
+            }
+            accountDropdown.classList.toggle('show');
+        });
+
+        // Cerrar el menú al hacer clic fuera
+        document.addEventListener('click', function(e) {
+            if (!accountButton.contains(e.target) && !accountDropdown.contains(e.target)) {
+                accountDropdown.classList.remove('show');
+            }
         });
     }
 
-    // Botones de inicio de sesión social
-    const socialButtons = document.querySelectorAll('.social-button');
-    socialButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
+    // Manejar clics en los enlaces del menú
+    const menuLinks = document.querySelectorAll('.menu-link');
+    menuLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
             e.preventDefault();
-            const provider = this.classList.contains('google') ? 'Google' : 'Facebook';
-            console.log(`Iniciando sesión con ${provider}...`);
-            
-            // Aquí iría la lógica de autenticación social
-            alert(`Inicio de sesión con ${provider} en desarrollo`);
+            if (!userData) {
+                window.location.href = 'login.html';
+            } else {
+                window.location.href = this.getAttribute('href');
+            }
         });
     });
 
-    // Manejo del botón de cerrar sesión
-    const logoutButton = document.getElementById('logoutButton');
+    // Cerrar sesión
     if (logoutButton) {
         logoutButton.addEventListener('click', function(e) {
             e.preventDefault();
@@ -53,87 +75,105 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Verificar estado de la sesión al cargar
-    checkLoginStatus();
+    // Formulario de login
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            handleLogin(this);
+        });
+    }
 });
 
-// Función para simular el inicio de sesión
-function simulateLogin(email, password, remember, username) {
-    // Mostrar un loader o spinner
-    const authButton = document.querySelector('.auth-button');
-    const originalText = authButton.textContent;
-    authButton.disabled = true;
-    authButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Iniciando sesión...';
+function getUserData() {
+    try {
+        const userStr = localStorage.getItem('userData') || sessionStorage.getItem('userData');
+        if (!userStr) return null;
 
-    // Simular una llamada a la API
-    setTimeout(() => {
-        if (email && password && username) {
-            // Guardar los datos de la sesión
-            const userData = {
-                email: email,
-                username: username,
-                timestamp: new Date().getTime()
-            };
+        const userData = JSON.parse(userStr);
+        if (!userData || !userData.timestamp) return null;
 
+        const now = new Date().getTime();
+        const hoursSinceLogin = (now - userData.timestamp) / (1000 * 60 * 60);
+        
+        if (hoursSinceLogin > 24) {
+            logout();
+            return null;
+        }
+
+        return userData;
+    } catch (e) {
+        console.error('Error parsing user data:', e);
+        return null;
+    }
+}
+
+function handleLogin(form) {
+    const email = form.querySelector('#email').value;
+    const password = form.querySelector('#password').value;
+    const remember = form.querySelector('#remember').checked;
+    const username = form.querySelector('#username').value;
+
+    if (email && password && username) {
+        const userData = {
+            email: email,
+            username: username,
+            timestamp: new Date().getTime()
+        };
+
+        try {
+            // Limpiar cualquier dato anterior
+            localStorage.removeItem('userData');
+            sessionStorage.removeItem('userData');
+
+            // Guardar nuevos datos
             if (remember) {
                 localStorage.setItem('userData', JSON.stringify(userData));
             } else {
                 sessionStorage.setItem('userData', JSON.stringify(userData));
             }
 
-            // Redirigir al usuario
-            window.location.href = 'index.html';
-        } else {
-            alert('Por favor, complete todos los campos');
-            authButton.disabled = false;
-            authButton.textContent = originalText;
-        }
-    }, 1500);
-}
-
-// Función para cerrar sesión
-function logout() {
-    localStorage.removeItem('userData');
-    sessionStorage.removeItem('userData');
-    window.location.reload();
-}
-
-// Verificar si el usuario ya está logueado
-function checkLoginStatus() {
-    const userData = JSON.parse(localStorage.getItem('userData') || sessionStorage.getItem('userData') || 'null');
-    const loginButton = document.getElementById('loginButton');
-    const userMenu = document.getElementById('userMenu');
-
-    if (userData && userData.timestamp) {
-        // Verificar si la sesión ha expirado (24 horas)
-        const now = new Date().getTime();
-        const hoursSinceLogin = (now - userData.timestamp) / (1000 * 60 * 60);
-
-        if (hoursSinceLogin > 24) {
-            // La sesión ha expirado
-            logout();
-            return;
-        }
-
-        // Actualizar la interfaz para usuario logueado
-        if (loginButton && userMenu) {
-            loginButton.style.display = 'none';
-            userMenu.style.display = 'block';
-            const userEmail = userMenu.querySelector('.user-email');
-            if (userEmail) {
-                userEmail.textContent = `¡Hola, ${userData.username}!`;
-            }
-        }
-
-        // Redirigir si está en la página de login
-        if (window.location.pathname.includes('login.html')) {
-            window.location.href = 'index.html';
+            // Redirigir al perfil usando replace para evitar el historial
+            window.location.replace('perfil.html');
+        } catch (e) {
+            console.error('Error saving user data:', e);
+            alert('Error al guardar los datos de sesión');
         }
     } else {
-        // Actualizar la interfaz para usuario no logueado
-        if (loginButton && userMenu) {
-            loginButton.style.display = 'flex';
-            userMenu.style.display = 'none';
-        }
+        alert('Por favor, complete todos los campos');
     }
-} 
+}
+
+function logout() {
+    try {
+        localStorage.removeItem('userData');
+        sessionStorage.removeItem('userData');
+        window.location.replace('index.html');
+    } catch (e) {
+        console.error('Error during logout:', e);
+    }
+}
+
+function updateUserInterface(userData) {
+    const userEmail = document.querySelector('.user-email');
+    const accountDropdown = document.getElementById('accountDropdown');
+
+    if (userData && userEmail) {
+        userEmail.textContent = `¡Hola, ${userData.username}!`;
+        if (accountDropdown) accountDropdown.style.display = 'block';
+    } else {
+        if (accountDropdown) accountDropdown.style.display = 'none';
+    }
+}
+
+// Botones de inicio de sesión social
+const socialButtons = document.querySelectorAll('.social-button');
+socialButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const provider = this.classList.contains('google') ? 'Google' : 'Facebook';
+        console.log(`Iniciando sesión con ${provider}...`);
+        
+        // Aquí iría la lógica de autenticación social
+        alert(`Inicio de sesión con ${provider} en desarrollo`);
+    });
+}); 

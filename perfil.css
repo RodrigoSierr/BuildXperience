@@ -1,0 +1,504 @@
+.profile-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    background: var(--primary-dark);
+    border-radius: 15px;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+}
+
+.profile-avatar-container {
+    position: relative;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--secondary-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 4px solid var(--accent-color);
+}
+
+.profile-avatar i {
+    font-size: 4rem;
+    color: var(--accent-hover);
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.edit-avatar {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.edit-avatar:hover {
+    background: var(--accent-hover);
+    transform: scale(1.1);
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-info h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.profile-email {
+    color: var(--accent-hover);
+    margin: 0.5rem 0;
+}
+
+.profile-status {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.profile-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+}
+
+.tab-button {
+    padding: 1rem 2rem;
+    border: none;
+    background: none;
+    color: var(--text-dark);
+    cursor: pointer;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.tab-button i {
+    margin-right: 0.5rem;
+}
+
+.tab-button:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.tab-button.active {
+    background: var(--accent-color);
+    color: white;
+}
+
+.profile-section {
+    display: none;
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.profile-section.active {
+    display: block;
+}
+
+.profile-section h2 {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    color: var(--primary-dark);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.info-grid, .preferences-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.info-item {
+    position: relative;
+}
+
+.info-item label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+}
+
+.info-value {
+    padding: 0.5rem;
+    background: var(--bg-light);
+    border-radius: 4px;
+    margin: 0;
+}
+
+.edit-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.info-item:hover .edit-button {
+    opacity: 1;
+}
+
+.edit-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 2px solid var(--accent-color);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.save-button, .cancel-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+.save-button {
+    color: #4CAF50;
+}
+
+.cancel-button {
+    color: #f44336;
+}
+
+.preference-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--bg-light);
+    border-radius: 8px;
+}
+
+.preference-info {
+    flex: 1;
+}
+
+.preference-description {
+    margin: 0.5rem 0 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.toggle-switch {
+    position: relative;
+    width: 60px;
+    height: 34px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: var(--accent-color);
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(26px);
+}
+
+.security-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.security-item {
+    background: var(--bg-light);
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.security-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.security-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.security-form input {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.update-button, .setup-2fa-button {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.update-button:hover, .setup-2fa-button:hover {
+    background: var(--accent-hover);
+}
+
+.purchase-history {
+    min-height: 200px;
+}
+
+.empty-history {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    text-align: center;
+}
+
+.empty-history i {
+    font-size: 4rem;
+    color: #ccc;
+    margin-bottom: 1rem;
+}
+
+.browse-products {
+    display: inline-block;
+    background: var(--accent-color);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.browse-products:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+}
+
+.purchase-card {
+    background: var(--bg-light);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.purchase-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.purchase-items {
+    display: grid;
+    gap: 1rem;
+}
+
+.purchase-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 4px;
+}
+
+.purchase-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.item-details h4 {
+    margin: 0 0 0.5rem;
+}
+
+.purchase-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ddd;
+}
+
+.purchase-total {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.purchase-status {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.purchase-status.completed {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.purchase-status.pending {
+    background: #fff3e0;
+    color: #f57c00;
+}
+
+.purchase-status.cancelled {
+    background: #ffebee;
+    color: #c62828;
+}
+
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    color: white;
+    z-index: 1000;
+    animation: slideIn 0.3s ease;
+}
+
+.notification.success {
+    background: #4CAF50;
+}
+
+.notification.error {
+    background: #f44336;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+body.dark-mode {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+body.dark-mode .profile-section {
+    background: #2d2d2d;
+}
+
+body.dark-mode .info-value,
+body.dark-mode .preference-item,
+body.dark-mode .security-item {
+    background: #3d3d3d;
+    color: #fff;
+}
+
+body.dark-mode .purchase-card {
+    background: #2d2d2d;
+}
+
+body.dark-mode .purchase-item {
+    background: #3d3d3d;
+}
+
+@media (max-width: 768px) {
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-tabs {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .tab-button {
+        width: calc(50% - 0.5rem);
+    }
+
+    .info-grid,
+    .preferences-grid,
+    .security-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .purchase-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+} 

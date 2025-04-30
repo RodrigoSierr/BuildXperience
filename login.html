@@ -19,11 +19,20 @@
                 <a href="productos.html">Productos</a>
                 <a href="index.html#destacados">Destacados</a>
                 <a href="index.html#contacto">Contacto</a>
+                <div class="account-container">
+                    <a href="#" class="account-link" id="accountButton">Mi Cuenta</a>
+                    <div class="account-dropdown" id="accountDropdown">
+                        <span class="user-email"></span>
+                        <a href="perfil.html" class="menu-link">Mi Perfil</a>
+                        <a href="perfil.html#purchase-history" class="menu-link">Mis Pedidos</a>
+                        <a href="#" id="logoutButton" class="logout-button">Cerrar Sesión</a>
+                    </div>
+                </div>
             </div>
         </nav>
     </header>
 
-    <main class="auth-container">
+    <main class="auth-container" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('Imágenes/Logos/login.jpg') center/cover no-repeat fixed;">
         <div class="auth-card">
             <h2>Iniciar Sesión</h2>
             <form id="loginForm" class="auth-form">
@@ -98,5 +107,6 @@
     </footer>
 
     <script src="auth.js"></script>
+    <script src="mobile.js"></script>
 </body>
 </html> 

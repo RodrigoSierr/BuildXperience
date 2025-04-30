@@ -131,19 +131,29 @@ class Cart {
             decreaseButton.addEventListener('click', () => {
                 const currentQuantity = parseInt(quantityInput.value);
                 if (currentQuantity > 1) {
-                    this.updateQuantity(productId, currentQuantity - 1);
+                    this.updateQuantity(productId, -1);
+                } else {
+                    this.removeItem(productId);
                 }
             });
 
             increaseButton.addEventListener('click', () => {
                 const currentQuantity = parseInt(quantityInput.value);
-                this.updateQuantity(productId, currentQuantity + 1);
+                this.updateQuantity(productId, 1);
             });
 
             quantityInput.addEventListener('change', (e) => {
                 const newQuantity = parseInt(e.target.value);
                 if (newQuantity > 0) {
-                    this.updateQuantity(productId, newQuantity);
+                    const item = this.items.find(item => item.id === productId);
+                    if (item) {
+                        item.quantity = newQuantity;
+                        this.saveCart();
+                        this.renderCartItems();
+                        this.renderRecommendations();
+                    }
+                } else {
+                    this.removeItem(productId);
                 }
             });
 

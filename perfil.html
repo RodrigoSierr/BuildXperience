@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - BuildXperience</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="perfil.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html"><h1>BuildXperience</h1></a>
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Menú">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="productos.html">Productos</a>
+                <a href="#contacto">Contacto</a>
+                <div class="account-container">
+                    <a href="#" class="account-link" id="accountButton">Mi Cuenta</a>
+                    <div class="account-dropdown" id="accountDropdown">
+                        <span class="user-email"></span>
+                        <a href="perfil.html" class="menu-link active">Mi Perfil</a>
+                        <a href="perfil.html#purchase-history" class="menu-link">Mis Pedidos</a>
+                        <a href="#" id="logoutButton" class="logout-button">Cerrar Sesión</a>
+                    </div>
+                </div>
+                <a href="cart.html" class="cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cartCount" class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="profile-container">
+        <div class="profile-header">
+            <div class="profile-avatar-container">
+                <div class="profile-avatar" id="profileAvatar">
+                    <i class="fas fa-user-circle"></i>
+                    <img src="" alt="Foto de perfil" id="avatarImage" style="display: none;">
+                </div>
+                <button class="edit-avatar" title="Cambiar foto de perfil">
+                    <i class="fas fa-camera"></i>
+                </button>
+            </div>
+            <div class="profile-info">
+                <h1 id="profile-username">Cargando...</h1>
+                <p id="profile-email" class="profile-email">Cargando...</p>
+                <span class="profile-status">Miembro desde <span id="member-since">...</span></span>
+            </div>
+        </div>
+
+        <div class="profile-tabs">
+            <button class="tab-button active" data-tab="info">
+                <i class="fas fa-user"></i> Información Personal
+            </button>
+            <button class="tab-button" data-tab="preferences">
+                <i class="fas fa-cog"></i> Preferencias
+            </button>
+            <button class="tab-button" data-tab="security">
+                <i class="fas fa-shield-alt"></i> Seguridad
+            </button>
+            <button class="tab-button" data-tab="purchases">
+                <i class="fas fa-shopping-bag"></i> Compras
+            </button>
+        </div>
+
+        <div class="profile-content">
+            <section class="profile-section active" id="info-section">
+                <h2><i class="fas fa-user"></i> Información Personal</h2>
+                <div class="info-grid">
+                    <div class="info-item editable">
+                        <label>Nombre de Usuario</label>
+                        <p id="info-username" class="info-value">Cargando...</p>
+                        <button class="edit-button"><i class="fas fa-pen"></i></button>
+                    </div>
+                    <div class="info-item editable">
+                        <label>Email</label>
+                        <p id="info-email" class="info-value">Cargando...</p>
+                        <button class="edit-button"><i class="fas fa-pen"></i></button>
+                    </div>
+                    <div class="info-item">
+                        <label>Fecha de Registro</label>
+                        <p id="info-register-date" class="info-value">Cargando...</p>
+                    </div>
+                    <div class="info-item">
+                        <label>Último Acceso</label>
+                        <p id="info-last-login" class="info-value">Cargando...</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="profile-section" id="preferences-section">
+                <h2><i class="fas fa-cog"></i> Preferencias</h2>
+                <div class="preferences-grid">
+                    <div class="preference-item">
+                        <div class="preference-info">
+                            <label>Notificaciones por Email</label>
+                            <p class="preference-description">Recibe actualizaciones sobre tus pedidos y ofertas especiales</p>
+                        </div>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="email-notifications">
+                            <span class="toggle-slider"></span>
+                        </div>
+                    </div>
+                    <div class="preference-item">
+                        <div class="preference-info">
+                            <label>Boletín de Ofertas</label>
+                            <p class="preference-description">Mantente informado sobre las últimas ofertas y novedades</p>
+                        </div>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="newsletter">
+                            <span class="toggle-slider"></span>
+                        </div>
+                    </div>
+                    <div class="preference-item">
+                        <div class="preference-info">
+                            <label>Modo Oscuro</label>
+                            <p class="preference-description">Cambia el tema de la interfaz</p>
+                        </div>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="dark-mode">
+                            <span class="toggle-slider"></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="profile-section" id="security-section">
+                <h2><i class="fas fa-shield-alt"></i> Seguridad</h2>
+                <div class="security-grid">
+                    <div class="security-item">
+                        <h3>Cambiar Contraseña</h3>
+                        <form id="password-form" class="security-form">
+                            <div class="form-group">
+                                <label for="current-password">Contraseña Actual</label>
+                                <input type="password" id="current-password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="new-password">Nueva Contraseña</label>
+                                <input type="password" id="new-password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm-password">Confirmar Contraseña</label>
+                                <input type="password" id="confirm-password" required>
+                            </div>
+                            <button type="submit" class="update-button">Actualizar Contraseña</button>
+                        </form>
+                    </div>
+                    <div class="security-item">
+                        <h3>Verificación en Dos Pasos</h3>
+                        <p class="security-description">Añade una capa extra de seguridad a tu cuenta</p>
+                        <button class="setup-2fa-button">Configurar 2FA</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="profile-section" id="purchases-section">
+                <h2><i class="fas fa-shopping-bag"></i> Historial de Compras</h2>
+                <div class="purchase-history" id="purchase-history">
+                    <div class="empty-history" id="empty-history">
+                        <i class="fas fa-shopping-bag"></i>
+                        <p>Aún no has realizado ninguna compra</p>
+                        <a href="productos.html" class="browse-products">Explorar Productos</a>
+                    </div>
+                    <div class="purchase-list" id="purchase-list" style="display: none;">
+                        <!-- Las compras se cargarán dinámicamente aquí -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer id="contacto">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-envelope"></i> info@buildxperience.com</p>
+                <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+                <p><i class="fas fa-map-marker-alt"></i> Arequipa, Perú</p>
+            </div>
+            <div class="footer-section">
+                <h3>Síguenos</h3>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Soporte</h3>
+                <a href="#">Centro de Ayuda</a>
+                <a href="#">Garantía</a>
+                <a href="#">Devoluciones</a>
+                <a href="#">Preguntas Frecuentes</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 BuildXperience. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <div id="notification" class="notification" style="display: none;"></div>
+
+    <script src="auth.js"></script>
+    <script src="mobile.js"></script>
+    <script src="perfil.js"></script>
+    <script src="cart.js"></script>
+</body>
+</html> 
