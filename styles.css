@@ -647,6 +647,10 @@ nav {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     z-index: 1000;
     margin-top: 0.5rem;
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
 }
 
 .account-dropdown::before {
@@ -661,7 +665,9 @@ nav {
 
 .account-dropdown.show {
     display: block;
-    animation: fadeIn 0.3s ease;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
 }
 
 .account-dropdown a {

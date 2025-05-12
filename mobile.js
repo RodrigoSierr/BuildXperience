@@ -1,16 +1,18 @@
+// Inicialización cuando el DOM está listo
 document.addEventListener('DOMContentLoaded', function() {
+    // Referencias a elementos del DOM para el menú móvil
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const navLinks = document.querySelector('.nav-links');
     const body = document.body;
 
-    // Toggle del menú móvil
+    // Toggle del menú móvil al hacer clic en el botón
     mobileMenuToggle.addEventListener('click', function() {
         navLinks.classList.toggle('active');
         this.classList.toggle('active');
         body.classList.toggle('menu-open');
     });
 
-    // Cerrar menú al hacer clic en un enlace
+    // Cerrar menú al hacer clic en un enlace (solo en móvil)
     navLinks.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', function() {
             if (window.innerWidth <= 768) {
@@ -21,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Cerrar menú al cambiar el tamaño de la ventana
+    // Cerrar menú al cambiar el tamaño de la ventana a desktop
     window.addEventListener('resize', function() {
         if (window.innerWidth > 768) {
             navLinks.classList.remove('active');
@@ -37,5 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Agregar listener para prevenir scroll
     document.addEventListener('scroll', preventScroll, { passive: false });
 }); 

@@ -1,4 +1,4 @@
-// Función para obtener datos del usuario
+// Función para obtener datos del usuario desde el almacenamiento
 function getUserData() {
     try {
         const userStr = localStorage.getItem('userData') || sessionStorage.getItem('userData');
@@ -22,57 +22,103 @@ function getUserData() {
     }
 }
 
-// Carrito de compras
+// Clase principal para manejar el carrito de compras
 class Cart {
     constructor() {
         this.userId = this.getUserId();
-        this.items = this.loadCart();
+        this.items = [];
+        this.loadCart();
         this.updateCartCount();
+        this.setupEventListeners();
+        this.checkAuthState();
         this.renderCartItems();
         this.renderRecommendations();
-        this.checkAuthState();
     }
 
-    checkAuthState() {
-        const userData = getUserData();
-        const cartLink = document.querySelector('.cart-link');
-        
-        if (cartLink) {
-            cartLink.addEventListener('click', (e) => {
-                if (!userData) {
-                    e.preventDefault();
-                    window.location.href = 'login.html';
-                }
-            });
+    // Obtener ID del usuario actual
+    getUserId() {
+        const userData = this.getUserData();
+        return userData ? userData.email : null;
+    }
+
+    // Obtener datos del usuario
+    getUserData() {
+        try {
+            const userData = localStorage.getItem('userData') || sessionStorage.getItem('userData');
+            if (!userData) return null;
+
+            const user = JSON.parse(userData);
+            const now = new Date().getTime();
+            const lastLogin = new Date(user.timestamp).getTime();
+            const hoursSinceLogin = (now - lastLogin) / (1000 * 60 * 60);
+
+            if (hoursSinceLogin > 24) {
+                this.logout();
+                return null;
+            }
+
+            return user;
+        } catch (error) {
+            console.error('Error al obtener datos del usuario:', error);
+            return null;
         }
     }
 
-    getUserId() {
-        const userData = JSON.parse(localStorage.getItem('userData') || sessionStorage.getItem('userData') || '{}');
-        return userData.email || 'guest';
+    // Verificar estado de autenticación
+    checkAuthState() {
+        const userData = this.getUserData();
+        const accountButton = document.getElementById('accountButton');
+        const accountDropdown = document.getElementById('accountDropdown');
+        const userEmail = document.querySelector('.user-email');
+
+        if (userData) {
+            // Usuario autenticado
+            if (userEmail) {
+                userEmail.textContent = userData.email;
+            }
+            if (accountButton) {
+                accountButton.style.display = 'block';
+            }
+            if (accountDropdown) {
+                accountDropdown.style.display = 'none';
+            }
+        } else {
+            // Usuario no autenticado
+            window.location.href = 'login.html';
+        }
     }
 
+    // Cerrar sesión
+    logout() {
+        localStorage.removeItem('userData');
+        sessionStorage.removeItem('userData');
+        window.location.href = 'login.html';
+    }
+
+    // Cargar carrito desde el almacenamiento
     loadCart() {
         const cartKey = `cart_${this.userId}`;
-        return JSON.parse(localStorage.getItem(cartKey)) || [];
+        const savedCart = localStorage.getItem(cartKey);
+        if (savedCart) {
+            this.items = JSON.parse(savedCart);
+        }
     }
 
+    // Guardar carrito en el almacenamiento
     saveCart() {
         const cartKey = `cart_${this.userId}`;
         localStorage.setItem(cartKey, JSON.stringify(this.items));
     }
 
+    // Añadir producto al carrito
     addItem(product) {
         const existingItem = this.items.find(item => item.id === product.id);
         
         if (existingItem) {
             existingItem.quantity += 1;
         } else {
-            // Asegurarse de que el producto tenga la categoría correcta
-            const category = this.getProductCategory(product.id);
             this.items.push({
                 ...product,
-                category: category,
                 quantity: 1
             });
         }
@@ -84,6 +130,7 @@ class Cart {
         this.showNotification(product.name);
     }
 
+    // Eliminar producto del carrito
     removeItem(productId) {
         this.items = this.items.filter(item => item.id !== productId);
         this.saveCart();
@@ -92,6 +139,7 @@ class Cart {
         this.renderRecommendations();
     }
 
+    // Actualizar cantidad de un producto
     updateQuantity(productId, change) {
         const item = this.items.find(item => item.id === productId);
         if (item) {
@@ -106,10 +154,12 @@ class Cart {
         }
     }
 
+    // Calcular total del carrito
     calculateTotal() {
         return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
     }
 
+    // Actualizar contador del carrito
     updateCartCount() {
         const count = this.items.reduce((sum, item) => sum + item.quantity, 0);
         const cartCounts = document.querySelectorAll('#cartCount');
@@ -119,6 +169,7 @@ class Cart {
         });
     }
 
+    // Renderizar items del carrito
     renderCartItems() {
         const cartItemsContainer = document.getElementById('cartItems');
         const subtotalElement = document.getElementById('subtotal');
@@ -169,6 +220,7 @@ class Cart {
         this.addEventListeners();
     }
 
+    // Añadir event listeners a los elementos del carrito
     addEventListeners() {
         const cartItems = document.querySelectorAll('.cart-item');
         
@@ -214,6 +266,7 @@ class Cart {
         });
     }
 
+    // Mostrar notificación de producto añadido
     showNotification(productName) {
         const notification = document.createElement('div');
         notification.className = 'cart-notification';
@@ -235,6 +288,7 @@ class Cart {
         }, 2000);
     }
 
+    // Obtener categoría de un producto
     getProductCategory(productId) {
         // Determinar la categoría basada en el ID del producto
         if (productId.startsWith('gpu-')) return 'tarjetas-graficas';
@@ -246,6 +300,7 @@ class Cart {
         return 'otros';
     }
 
+    // Obtener recomendaciones de productos
     getRecommendations() {
         const categories = new Set(this.items.map(item => item.category));
         const recommendations = [];
@@ -308,6 +363,7 @@ class Cart {
         return filteredRecommendations.slice(0, 4);
     }
 
+    // Renderizar recomendaciones
     renderRecommendations() {
         const recommendationsContainer = document.querySelector('.recommendations-grid');
         if (!recommendationsContainer) return;
@@ -330,6 +386,36 @@ class Cart {
                 </button>
             </div>
         `).join('');
+    }
+
+    // Configurar event listeners
+    setupEventListeners() {
+        // Event listener para el menú de cuenta
+        const accountButton = document.getElementById('accountButton');
+        const accountDropdown = document.getElementById('accountDropdown');
+
+        if (accountButton && accountDropdown) {
+            accountButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                accountDropdown.classList.toggle('show');
+            });
+
+            // Cerrar el menú al hacer clic fuera
+            document.addEventListener('click', (e) => {
+                if (!accountButton.contains(e.target) && !accountDropdown.contains(e.target)) {
+                    accountDropdown.classList.remove('show');
+                }
+            });
+        }
+
+        // Event listener para el botón de cerrar sesión
+        const logoutButton = document.getElementById('logoutButton');
+        if (logoutButton) {
+            logoutButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.logout();
+            });
+        }
     }
 }
 
@@ -354,8 +440,9 @@ function handleAddToCart(event) {
     cart.addItem(product);
 }
 
-// Añadir event listeners a los botones de añadir al carrito
+// Inicialización cuando el DOM está listo
 document.addEventListener('DOMContentLoaded', function() {
+    // Añadir event listeners a los botones de añadir al carrito
     const addToCartButtons = document.querySelectorAll('.product-button');
     addToCartButtons.forEach(button => {
         button.addEventListener('click', handleAddToCart);
@@ -364,5 +451,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Renderizar recomendaciones iniciales si estamos en la página del carrito
     if (document.querySelector('.recommendations-grid')) {
         cart.renderRecommendations();
+    }
+
+    // Configurar botón de checkout
+    const checkoutButton = document.querySelector('.checkout-button');
+    if (checkoutButton) {
+        checkoutButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'checkout.html';
+        });
     }
 }); 

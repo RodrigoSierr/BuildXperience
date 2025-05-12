@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Metadatos básicos y configuración del documento -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión - DevCore</title>
+    <!-- Enlaces a hojas de estilo -->
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="auth.css">
+    <!-- Enlace a Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <!-- Encabezado de la página con navegación -->
     <header>
         <nav>
+            <!-- Logo y nombre de la tienda -->
             <div class="logo">
                 <a href="index.html"><h1>BuildXperience</h1></a>
             </div>
+            <!-- Enlaces de navegación -->
             <div class="nav-links">
                 <a href="index.html">Inicio</a>
                 <a href="productos.html">Productos</a>
                 <a href="index.html#destacados">Destacados</a>
                 <a href="index.html#contacto">Contacto</a>
+                <!-- Contenedor de cuenta de usuario -->
                 <div class="account-container">
                     <a href="#" class="account-link" id="accountButton">Mi Cuenta</a>
+                    <!-- Menú desplegable de cuenta -->
                     <div class="account-dropdown" id="accountDropdown">
                         <span class="user-email"></span>
                         <a href="perfil.html" class="menu-link">Mi Perfil</a>
@@ -32,18 +40,24 @@
         </nav>
     </header>
 
+    <!-- Contenido principal de la página de login -->
     <main class="auth-container" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('Imágenes/Logos/login.jpg') center/cover no-repeat fixed;">
+        <!-- Tarjeta de autenticación -->
         <div class="auth-card">
             <h2>Iniciar Sesión</h2>
+            <!-- Formulario de inicio de sesión -->
             <form id="loginForm" class="auth-form">
+                <!-- Campo de nombre de usuario -->
                 <div class="form-group">
                     <label for="username">Nombre de Usuario</label>
                     <input type="text" id="username" name="username" required>
                 </div>
+                <!-- Campo de email -->
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" required>
                 </div>
+                <!-- Campo de contraseña con botón para mostrar/ocultar -->
                 <div class="form-group">
                     <label for="password">Contraseña</label>
                     <div class="password-input">
@@ -53,18 +67,23 @@
                         </button>
                     </div>
                 </div>
+                <!-- Opción de recordar sesión -->
                 <div class="form-group remember-me">
                     <input type="checkbox" id="remember" name="remember">
                     <label for="remember">Recordarme</label>
                 </div>
+                <!-- Botón de inicio de sesión -->
                 <button type="submit" class="auth-button">Iniciar Sesión</button>
             </form>
+            <!-- Enlaces de ayuda y registro -->
             <div class="auth-links">
                 <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
                 <p>¿No tienes cuenta? <a href="register.html">Regístrate</a></p>
             </div>
+            <!-- Sección de inicio de sesión social -->
             <div class="social-login">
                 <p>O inicia sesión con</p>
+                <!-- Botones de inicio de sesión social -->
                 <div class="social-buttons">
                     <button class="social-button google">
                         <i class="fab fa-google"></i>
@@ -79,13 +98,16 @@
         </div>
     </main>
 
+    <!-- Pie de página -->
     <footer id="contacto">
         <div class="footer-content">
+            <!-- Sección de contacto -->
             <div class="footer-section">
                 <h3>Contacto</h3>
                 <p>Email: info@devcore.com</p>
                 <p>Teléfono: +1 234 567 890</p>
             </div>
+            <!-- Sección de redes sociales -->
             <div class="footer-section">
                 <h3>Síguenos</h3>
                 <div class="social-links">
@@ -94,6 +116,7 @@
                     <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
+            <!-- Sección de soporte -->
             <div class="footer-section">
                 <h3>Soporte</h3>
                 <p>Centro de Ayuda</p>
@@ -101,11 +124,13 @@
                 <p>Devoluciones</p>
             </div>
         </div>
+        <!-- Copyright -->
         <div class="footer-bottom">
             <p>&copy; 2024 DevCore. Todos los derechos reservados.</p>
         </div>
     </footer>
 
+    <!-- Scripts de JavaScript -->
     <script src="auth.js"></script>
     <script src="mobile.js"></script>
 </body>

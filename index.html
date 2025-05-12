@@ -185,28 +185,10 @@
     <script src="mobile.js"></script>
     <script>
         function addToCartAndRedirect(product) {
-            // Obtener el carrito actual o crear uno nuevo
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            
-            // Verificar si el producto ya está en el carrito
-            const existingItem = cart.find(item => item.id === product.id);
-            
-            if (existingItem) {
-                // Si el producto ya existe, incrementar la cantidad
-                existingItem.quantity += 1;
-            } else {
-                // Si no existe, añadirlo al carrito
-                cart.push({
-                    ...product,
-                    quantity: 1
-                });
+            if (cart) {
+                cart.addItem(product);
+                window.location.href = 'cart.html';
             }
-            
-            // Guardar el carrito actualizado
-            localStorage.setItem('cart', JSON.stringify(cart));
-            
-            // Redirigir a la página del carrito
-            window.location.href = 'cart.html';
         }
     </script>
 </body>

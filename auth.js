@@ -1,3 +1,4 @@
+// Inicialización cuando el DOM está listo
 document.addEventListener('DOMContentLoaded', function() {
     // Elementos del formulario de inicio de sesión
     const loginForm = document.getElementById('loginForm');
@@ -9,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const accountDropdown = document.getElementById('accountDropdown');
     const logoutButton = document.getElementById('logoutButton');
 
-    // Mostrar/ocultar contraseña
+    // Función para mostrar/ocultar contraseña
     if (togglePassword) {
         togglePassword.addEventListener('click', function() {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -23,30 +24,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const userData = getUserData();
     updateUserInterface(userData);
 
-    // Si estamos en login.html y el usuario ya está autenticado, redirigir a perfil
+    // Redirección si el usuario ya está autenticado en login.html
     if (window.location.pathname.includes('login.html') && userData) {
         window.location.replace('perfil.html');
         return;
     }
 
-    // Si estamos en perfil.html y no hay usuario autenticado, redirigir a login
+    // Redirección si no hay usuario autenticado en perfil.html
     if (window.location.pathname.includes('perfil.html') && !userData) {
         window.location.replace('login.html');
         return;
     }
 
-    // Mostrar/ocultar menú de cuenta
+    // Configuración del menú de cuenta
     if (accountButton && accountDropdown) {
         accountButton.addEventListener('click', function(e) {
             e.preventDefault();
-            if (!userData) {
-                window.location.href = 'login.html';
-                return;
-            }
             accountDropdown.classList.toggle('show');
         });
-
-        // Cerrar el menú al hacer clic fuera
+        // Cerrar menú al hacer clic fuera
         document.addEventListener('click', function(e) {
             if (!accountButton.contains(e.target) && !accountDropdown.contains(e.target)) {
                 accountDropdown.classList.remove('show');
@@ -54,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Manejar clics en los enlaces del menú
+    // Manejo de clics en enlaces del menú
     const menuLinks = document.querySelectorAll('.menu-link');
     menuLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -67,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Cerrar sesión
+    // Manejo del cierre de sesión
     if (logoutButton) {
         logoutButton.addEventListener('click', function(e) {
             e.preventDefault();
@@ -75,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Formulario de login
+    // Manejo del formulario de login
     if (loginForm) {
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -84,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Función para obtener datos del usuario
 function getUserData() {
     try {
         const userStr = localStorage.getItem('userData') || sessionStorage.getItem('userData');
@@ -107,6 +104,7 @@ function getUserData() {
     }
 }
 
+// Función para manejar el inicio de sesión
 function handleLogin(form) {
     const email = form.querySelector('#email').value;
     const password = form.querySelector('#password').value;
@@ -128,20 +126,20 @@ function handleLogin(form) {
             localStorage.removeItem('userData');
             sessionStorage.removeItem('userData');
 
-            // Guardar nuevos datos
+            // Guardar nuevos datos según la preferencia de "recordarme"
             if (remember) {
                 localStorage.setItem('userData', JSON.stringify(userData));
             } else {
                 sessionStorage.setItem('userData', JSON.stringify(userData));
             }
 
-            // Si existe un carrito de invitado, transferirlo al usuario
+            // Transferir carrito de invitado al usuario si existe
             if (guestCart) {
                 localStorage.setItem(`cart_${email}`, guestCart);
                 localStorage.removeItem('cart_guest');
             }
 
-            // Redirigir al perfil usando replace para evitar el historial
+            // Redirigir al perfil
             window.location.replace('perfil.html');
         } catch (e) {
             console.error('Error saving user data:', e);
@@ -152,6 +150,7 @@ function handleLogin(form) {
     }
 }
 
+// Función para cerrar sesión
 function logout() {
     try {
         const userData = JSON.parse(localStorage.getItem('userData') || sessionStorage.getItem('userData') || '{}');
@@ -163,6 +162,7 @@ function logout() {
             localStorage.removeItem(`cart_${userData.email}`);
         }
 
+        // Limpiar datos de sesión
         localStorage.removeItem('userData');
         sessionStorage.removeItem('userData');
         window.location.replace('index.html');
@@ -171,6 +171,7 @@ function logout() {
     }
 }
 
+// Función para actualizar la interfaz según el estado de autenticación
 function updateUserInterface(userData) {
     const userEmail = document.querySelector('.user-email');
     const accountDropdown = document.getElementById('accountDropdown');
@@ -183,7 +184,7 @@ function updateUserInterface(userData) {
     }
 }
 
-// Botones de inicio de sesión social
+// Configuración de botones de inicio de sesión social
 const socialButtons = document.querySelectorAll('.social-button');
 socialButtons.forEach(button => {
     button.addEventListener('click', function(e) {
