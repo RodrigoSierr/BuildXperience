@@ -1,10 +1,65 @@
+// Función para obtener datos del usuario
+function getUserData() {
+    try {
+        const userStr = localStorage.getItem('userData') || sessionStorage.getItem('userData');
+        if (!userStr) return null;
+
+        const userData = JSON.parse(userStr);
+        if (!userData || !userData.timestamp) return null;
+
+        const now = new Date().getTime();
+        const hoursSinceLogin = (now - userData.timestamp) / (1000 * 60 * 60);
+        
+        if (hoursSinceLogin > 24) {
+            logout();
+            return null;
+        }
+
+        return userData;
+    } catch (e) {
+        console.error('Error parsing user data:', e);
+        return null;
+    }
+}
+
 // Carrito de compras
 class Cart {
     constructor() {
-        this.items = JSON.parse(localStorage.getItem('cart')) || [];
+        this.userId = this.getUserId();
+        this.items = this.loadCart();
         this.updateCartCount();
         this.renderCartItems();
         this.renderRecommendations();
+        this.checkAuthState();
+    }
+
+    checkAuthState() {
+        const userData = getUserData();
+        const cartLink = document.querySelector('.cart-link');
+        
+        if (cartLink) {
+            cartLink.addEventListener('click', (e) => {
+                if (!userData) {
+                    e.preventDefault();
+                    window.location.href = 'login.html';
+                }
+            });
+        }
+    }
+
+    getUserId() {
+        const userData = JSON.parse(localStorage.getItem('userData') || sessionStorage.getItem('userData') || '{}');
+        return userData.email || 'guest';
+    }
+
+    loadCart() {
+        const cartKey = `cart_${this.userId}`;
+        return JSON.parse(localStorage.getItem(cartKey)) || [];
+    }
+
+    saveCart() {
+        const cartKey = `cart_${this.userId}`;
+        localStorage.setItem(cartKey, JSON.stringify(this.items));
     }
 
     addItem(product) {
@@ -53,10 +108,6 @@ class Cart {
 
     calculateTotal() {
         return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
-    }
-
-    saveCart() {
-        localStorage.setItem('cart', JSON.stringify(this.items));
     }
 
     updateCartCount() {

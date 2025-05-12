@@ -121,6 +121,9 @@ function handleLogin(form) {
         };
 
         try {
+            // Guardar el carrito del invitado si existe
+            const guestCart = localStorage.getItem('cart_guest');
+            
             // Limpiar cualquier dato anterior
             localStorage.removeItem('userData');
             sessionStorage.removeItem('userData');
@@ -130,6 +133,12 @@ function handleLogin(form) {
                 localStorage.setItem('userData', JSON.stringify(userData));
             } else {
                 sessionStorage.setItem('userData', JSON.stringify(userData));
+            }
+
+            // Si existe un carrito de invitado, transferirlo al usuario
+            if (guestCart) {
+                localStorage.setItem(`cart_${email}`, guestCart);
+                localStorage.removeItem('cart_guest');
             }
 
             // Redirigir al perfil usando replace para evitar el historial
@@ -145,6 +154,15 @@ function handleLogin(form) {
 
 function logout() {
     try {
+        const userData = JSON.parse(localStorage.getItem('userData') || sessionStorage.getItem('userData') || '{}');
+        const userCart = localStorage.getItem(`cart_${userData.email}`);
+        
+        // Guardar el carrito del usuario como carrito de invitado
+        if (userCart) {
+            localStorage.setItem('cart_guest', userCart);
+            localStorage.removeItem(`cart_${userData.email}`);
+        }
+
         localStorage.removeItem('userData');
         sessionStorage.removeItem('userData');
         window.location.replace('index.html');
