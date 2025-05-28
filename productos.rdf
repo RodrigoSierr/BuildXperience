@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:product="http://buildxperience.com/schema/product#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+
+    <!-- Tarjetas Gráficas -->
+    <rdf:Description rdf:about="http://buildxperience.com/products/gpu-1">
+        <product:name>NVIDIA RTX 4090</product:name>
+        <product:category>tarjetas-graficas</product:category>
+        <product:description>24GB GDDR6X, DLSS 3.0, Ray Tracing</product:description>
+        <product:price rdf:datatype="xsd:decimal">1599.99</product:price>
+        <product:rating rdf:datatype="xsd:decimal">4.5</product:rating>
+        <product:reviews rdf:datatype="xsd:integer">24</product:reviews>
+        <product:image>Imágenes/Tarjetas Gráficas/NVIDIA RTX 4090.jpg</product:image>
+        <product:badge>nuevo</product:badge>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="http://buildxperience.com/products/gpu-2">
+        <product:name>NVIDIA RTX 4080</product:name>
+        <product:category>tarjetas-graficas</product:category>
+        <product:description>16GB GDDR6X, DLSS 3.0, Ray Tracing</product:description>
+        <product:price rdf:datatype="xsd:decimal">1099.99</product:price>
+        <product:rating rdf:datatype="xsd:decimal">4.0</product:rating>
+        <product:reviews rdf:datatype="xsd:integer">18</product:reviews>
+        <product:image>Imágenes/Tarjetas Gráficas/NVIDIA RTX 4080.jpg</product:image>
+        <product:badge>destacado</product:badge>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="http://buildxperience.com/products/gpu-3">
+        <product:name>AMD RX 7900 XTX</product:name>
+        <product:category>tarjetas-graficas</product:category>
+        <product:description>24GB GDDR6, FSR 3.0, Ray Tracing</product:description>
+        <product:price rdf:datatype="xsd:decimal">999.99</product:price>
+        <product:rating rdf:datatype="xsd:decimal">5.0</product:rating>
+        <product:reviews rdf:datatype="xsd:integer">15</product:reviews>
+        <product:image>Imágenes/Tarjetas Gráficas/AMD RX 7900 XTX.webp</product:image>
+        <product:badge>oferta</product:badge>
+    </rdf:Description>
+
+    <!-- Procesadores -->
+    <rdf:Description rdf:about="http://buildxperience.com/products/cpu-1">
+        <product:name>Intel Core i9-14900K</product:name>
+        <product:category>procesadores</product:category>
+        <product:description>24 núcleos, 6.0GHz, DDR5</product:description>
+        <product:price rdf:datatype="xsd:decimal">589.99</product:price>
+        <product:rating rdf:datatype="xsd:decimal">4.5</product:rating>
+        <product:reviews rdf:datatype="xsd:integer">20</product:reviews>
+        <product:image>Imágenes/Procesadores/Intel Core i9-14900K.webp</product:image>
+        <product:badge>nuevo</product:badge>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="http://buildxperience.com/products/cpu-2">
+        <product:name>AMD Ryzen 9 7950X3D</product:name>
+        <product:category>procesadores</product:category>
+        <product:description>16 núcleos, 5.7GHz, 144MB Cache</product:description>
+        <product:price rdf:datatype="xsd:decimal">699.99</product:price>
+        <product:rating rdf:datatype="xsd:decimal">5.0</product:rating>
+        <product:reviews rdf:datatype="xsd:integer">18</product:reviews>
+        <product:image>Imágenes/Procesadores/AMD Ryzen 9 7950X3D.jpeg</product:image>
+        <product:badge>destacado</product:badge>
+    </rdf:Description>
+
+    <!-- Memoria RAM -->
+    <rdf:Description rdf:about="http://buildxperience.com/products/ram-1">
+        <product:name>Corsair Dominator Platinum RGB</product:name>
+        <product:category>memoria-ram</product:category>
+        <product:description>32GB DDR5 7200MHz, RGB</product:description>
+        <product:price rdf:datatype="xsd:decimal">299.99</product:price>
+        <product:rating rdf:datatype="xsd:decimal">5.0</product:rating>
+        <product:reviews rdf:datatype="xsd:integer">22</product:reviews>
+        <product:image>Imágenes/Memoria RAM/Corsair Dominator Platinum RGB.jpg</product:image>
+        <product:badge>nuevo</product:badge>
+    </rdf:Description>
+
+    <!-- Almacenamiento -->
+    <rdf:Description rdf:about="http://buildxperience.com/products/ssd-1">
+        <product:name>Samsung 990 Pro</product:name>
+        <product:category>almacenamiento</product:category>
+        <product:description>2TB NVMe PCIe 4.0, 7450MB/s</product:description>
+        <product:price rdf:datatype="xsd:decimal">169.99</product:price>
+        <product:rating rdf:datatype="xsd:decimal">5.0</product:rating>
+        <product:reviews rdf:datatype="xsd:integer">28</product:reviews>
+        <product:image>Imágenes/Almacenamiento/Samsung 990 Pro.jpg</product:image>
+        <product:badge>nuevo</product:badge>
+    </rdf:Description>
+
+    <!-- Placas Base -->
+    <rdf:Description rdf:about="http://buildxperience.com/products/mb-1">
+        <product:name>ASUS ROG Maximus Z790</product:name>
+        <product:category>placas-base</product:category>
+        <product:description>Intel Z790, DDR5, PCIe 5.0</product:description>
+        <product:price rdf:datatype="xsd:decimal">599.99</product:price>
+        <product:rating rdf:datatype="xsd:decimal">5.0</product:rating>
+        <product:reviews rdf:datatype="xsd:integer">16</product:reviews>
+        <product:image>Imágenes/Placas Base/ASUS ROG Maximus Z790.jpeg</product:image>
+        <product:badge>nuevo</product:badge>
+    </rdf:Description>
+
+    <!-- Refrigeración -->
+    <rdf:Description rdf:about="http://buildxperience.com/products/cool-1">
+        <product:name>NZXT Kraken Z73</product:name>
+        <product:category>refrigeracion</product:category>
+        <product:description>360mm AIO, Pantalla LCD</product:description>
+        <product:price rdf:datatype="xsd:decimal">279.99</product:price>
+        <product:rating rdf:datatype="xsd:decimal">5.0</product:rating>
+        <product:reviews rdf:datatype="xsd:integer">21</product:reviews>
+        <product:image>Imágenes/Refrigeración/NZXT Kraken Z73.jpg</product:image>
+        <product:badge>nuevo</product:badge>
+    </rdf:Description>
+
+</rdf:RDF> 

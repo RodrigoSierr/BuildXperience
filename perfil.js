@@ -253,43 +253,68 @@ class UserProfile {
     }
 
     renderPurchaseHistory() {
-        const purchaseHistory = this.user.purchases || [];
-        const emptyHistory = document.getElementById('empty-history');
-        const purchaseList = document.getElementById('purchase-list');
+        const purchaseHistoryContainer = document.getElementById('purchase-history');
+        if (!purchaseHistoryContainer) return;
 
-        if (purchaseHistory.length === 0) {
-            emptyHistory.style.display = 'flex';
-            purchaseList.style.display = 'none';
+        if (!this.user.purchaseHistory || this.user.purchaseHistory.length === 0) {
+            purchaseHistoryContainer.innerHTML = `
+                <div class="empty-history">
+                    <i class="fas fa-shopping-bag"></i>
+                    <p>No tienes compras registradas</p>
+                    <a href="productos.html" class="continue-shopping">Ir a comprar</a>
+                </div>
+            `;
             return;
         }
 
-        emptyHistory.style.display = 'none';
-        purchaseList.style.display = 'block';
-        purchaseList.innerHTML = purchaseHistory.map(purchase => this.createPurchaseCard(purchase)).join('');
+        purchaseHistoryContainer.innerHTML = this.user.purchaseHistory.map(purchase => this.createPurchaseCard(purchase)).join('');
     }
 
     createPurchaseCard(purchase) {
+        const formattedDate = this.formatDate(new Date(purchase.date));
+        const itemsList = purchase.items.map(item => `
+            <div class="purchase-item">
+                <img src="${item.image}" alt="${item.name}" class="purchase-item-image">
+                <div class="purchase-item-details">
+                    <span class="item-name">${item.name}</span>
+                    <span class="item-quantity">Cantidad: ${item.quantity}</span>
+                    <span class="item-price">$${item.price.toFixed(2)}</span>
+                </div>
+            </div>
+        `).join('');
+
         return `
             <div class="purchase-card">
                 <div class="purchase-header">
-                    <span class="purchase-date">${this.formatDate(purchase.date)}</span>
-                    <span class="purchase-id">Orden #${purchase.id}</span>
+                    <div class="purchase-info">
+                        <span class="purchase-id">Pedido #${purchase.id}</span>
+                        <span class="purchase-date">${formattedDate}</span>
+                    </div>
+                    <span class="purchase-status ${purchase.status.toLowerCase()}">${purchase.status}</span>
                 </div>
                 <div class="purchase-items">
-                    ${purchase.items.map(item => `
-                        <div class="purchase-item">
-                            <img src="${item.image}" alt="${item.name}">
-                            <div class="item-details">
-                                <h4>${item.name}</h4>
-                                <p>Cantidad: ${item.quantity}</p>
-                                <p>Precio: $${item.price.toFixed(2)}</p>
-                            </div>
-                        </div>
-                    `).join('')}
+                    ${itemsList}
                 </div>
-                <div class="purchase-footer">
-                    <span class="purchase-total">Total: $${purchase.total.toFixed(2)}</span>
-                    <span class="purchase-status ${purchase.status.toLowerCase()}">${purchase.status}</span>
+                <div class="purchase-summary">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span>$${purchase.subtotal.toFixed(2)}</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Envío:</span>
+                        <span>$${purchase.shipping.toFixed(2)}</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span>$${purchase.total.toFixed(2)}</span>
+                    </div>
+                </div>
+                <div class="shipping-info">
+                    <h4>Información de envío</h4>
+                    <p>${purchase.shippingInfo.name}</p>
+                    <p>${purchase.shippingInfo.address}</p>
+                    <p>${purchase.shippingInfo.city}, ${purchase.shippingInfo.postalCode}</p>
+                    <p>${purchase.shippingInfo.country}</p>
                 </div>
             </div>
         `;
