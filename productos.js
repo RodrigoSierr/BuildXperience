@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // --- Implementación de Schema.org (JSON-LD) para SEO ---
+    // Implementación de Schema.org (JSON-LD) para SEO 
     function addSchemaMarkup() {
         const products = [];
         document.querySelectorAll('.product-card').forEach(card => {
@@ -209,15 +209,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Llamar a la función para añadir el marcado Schema.org al cargar la página
     addSchemaMarkup();
 
-    // --- Integración con DBpedia ---
-    // Mapeo simple de nombre de producto a URI de DBpedia (ampliado con algunos ejemplos)
-    // **Nota:** Este mapeo es limitado. Una implementación completa requeriría un mapeo más robusto
-    // o una estrategia de búsqueda en DBpedia.
     const dbpediaUris = {
         "NVIDIA RTX 4090": "http://dbpedia.org/resource/GeForce_40_series",
         "Intel Core i9-14900K": "http://dbpedia.org/resource/Intel_Core_i9", // URI para la serie i9
-        // "Corsair Dominator Platinum RGB": "http://dbpedia.org/resource/Corsair_Gaming", // URI para la marca Corsair
-        // Puedes añadir más mapeos aquí manualmente si conoces las URIs correctas
+        "AMD Ryzen 9 7950X": "http://dbpedia.org/resource/Ryzen_9", // URI para la serie Ryzen 9
+        "Corsair Vengeance LPX 32GB": "http://dbpedia.org/resource/Corsair_Vengeance_LPX", // URI para la serie Vengeance LPX
+        "Samsung 970 EVO Plus 1TB": "http://dbpedia.org/resource/Samsung_970_EVO_Plus", // URI para el modelo 970 EVO Plus
+        "ASUS ROG Strix Z790-E": "http://dbpedia.org/resource/ASUS_ROG_Series", // URI para la serie ROG
+        "Cooler Master MasterLiquid ML360R": "http://dbpedia.org/resource/Cooler_Master_MasterLiquid", // URI para la serie MasterLiquid
+        "Corsair RM850x": "http://dbpedia.org/resource/Corsair_RM_Series", // URI para la serie RM
     };
 
     // Función para consultar DBpedia para un producto

@@ -237,13 +237,10 @@
     .checkout-content {
         gap: 2rem;
     }
-<<<<<<< HEAD
 
     .checkout-summary, .checkout-user {
         padding: 1.8rem;
     }
-=======
->>>>>>> 1afd1c47128c9ef735e73f2d4326625e5d5a3483
 }
 
 /* Estilos para las notificaciones */
@@ -280,7 +277,6 @@
 
 .checkout-notification i {
     font-size: 1.2rem;
-<<<<<<< HEAD
 }
 
 /* Dark Mode Styles */
@@ -357,6 +353,4 @@ body.dark-mode .checkout-notification.success {
 
 body.dark-mode .checkout-notification.error {
     background: #c62828;
-=======
->>>>>>> 1afd1c47128c9ef735e73f2d4326625e5d5a3483
 } 
