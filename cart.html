@@ -10,6 +10,19 @@
     <link rel="stylesheet" href="cart.css">
     <!-- Enlace a Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script>
+        // Script para aplicar el modo oscuro al cargar la página ANTES de que se renderice el contenido
+        (function() {
+            const isDarkModeEnabled = localStorage.getItem('darkModeEnabled') === 'true';
+            console.log('Dark mode state from localStorage:', localStorage.getItem('darkModeEnabled'), '-> Applied:', isDarkModeEnabled);
+            if (isDarkModeEnabled) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        })();
+    </script>
 </head>
 <body>
     <!-- Encabezado de la página con navegación -->

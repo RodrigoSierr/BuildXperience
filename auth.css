@@ -196,4 +196,81 @@
     .social-buttons {
         flex-direction: column;
     }
+}
+
+/* Dark Mode Styles */
+body.dark-mode .auth-card {
+    background: var(--dark-secondary-dark);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .auth-card h2 {
+    color: var(--dark-text-dark);
+}
+
+body.dark-mode .form-group label {
+    color: var(--dark-text-dark);
+}
+
+body.dark-mode .form-group input {
+    background: var(--dark-primary-dark);
+    border-color: var(--dark-secondary-dark);
+    color: var(--dark-text-light);
+}
+
+body.dark-mode .form-group input:focus {
+    border-color: var(--dark-accent-color);
+    box-shadow: 0 0 0 3px rgba(50, 130, 184, 0.2);
+}
+
+body.dark-mode .toggle-password {
+    color: var(--dark-text-light);
+}
+
+body.dark-mode .toggle-password:hover {
+    color: var(--dark-accent-color);
+}
+
+body.dark-mode .auth-button {
+    background: linear-gradient(45deg, var(--dark-accent-color), var(--dark-accent-hover));
+}
+
+body.dark-mode .auth-button:hover {
+    box-shadow: 0 4px 15px rgba(50, 130, 184, 0.4);
+}
+
+body.dark-mode .auth-links a {
+    color: var(--dark-accent-color);
+}
+
+body.dark-mode .auth-links a:hover {
+    color: var(--dark-accent-hover);
+}
+
+body.dark-mode .social-login p {
+    color: var(--dark-text-light);
+}
+
+body.dark-mode .social-login p::before,
+body.dark-mode .social-login p::after {
+    background-color: var(--dark-secondary-dark);
+}
+
+body.dark-mode .social-button {
+    background: var(--dark-primary-dark);
+    border-color: var(--dark-secondary-dark);
+    color: var(--dark-text-light);
+}
+
+body.dark-mode .social-button.google {
+    color: #ff6b6b;
+}
+
+body.dark-mode .social-button.facebook {
+    color: #6b8aff;
+}
+
+body.dark-mode .social-button:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 } 
