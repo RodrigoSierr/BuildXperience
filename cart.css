@@ -362,6 +362,7 @@
 }
 
 @media (max-width: 768px) {
+<<<<<<< HEAD
     .cart-section {
         margin: 1rem auto;
     }
@@ -370,6 +371,17 @@
         font-size: 1.8rem;
         margin-bottom: 1.5rem;
     }
+=======
+    .recommendations-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    .recommended-product img {
+        height: 150px;
+    }
+}
+>>>>>>> 1afd1c47128c9ef735e73f2d4326625e5d5a3483
 
     .cart-container {
         grid-template-columns: 1fr;

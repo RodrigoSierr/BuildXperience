@@ -465,6 +465,7 @@ class UserProfile {
 
     renderPurchaseHistory() {
         const purchaseHistoryContainer = document.getElementById('purchase-history');
+<<<<<<< HEAD
         if (!purchaseHistoryContainer) {
              console.error('Purchase history container not found.');
              return;
@@ -508,6 +509,22 @@ class UserProfile {
 
 
 
+=======
+        if (!purchaseHistoryContainer) return;
+
+        if (!this.user.purchaseHistory || this.user.purchaseHistory.length === 0) {
+            purchaseHistoryContainer.innerHTML = `
+                <div class="empty-history">
+                    <i class="fas fa-shopping-bag"></i>
+                    <p>No tienes compras registradas</p>
+                    <a href="productos.html" class="continue-shopping">Ir a comprar</a>
+                </div>
+            `;
+            return;
+        }
+
+        purchaseHistoryContainer.innerHTML = this.user.purchaseHistory.map(purchase => this.createPurchaseCard(purchase)).join('');
+>>>>>>> 1afd1c47128c9ef735e73f2d4326625e5d5a3483
     }
 
     createPurchaseCard(purchase) {
@@ -530,7 +547,11 @@ class UserProfile {
                         <span class="purchase-id">Pedido #${purchase.id}</span>
                         <span class="purchase-date">${formattedDate}</span>
                     </div>
+<<<<<<< HEAD
                     <span class="purchase-status ${purchase.status.toLowerCase().replace(' ', '-')}">${purchase.status}</span>
+=======
+                    <span class="purchase-status ${purchase.status.toLowerCase()}">${purchase.status}</span>
+>>>>>>> 1afd1c47128c9ef735e73f2d4326625e5d5a3483
                 </div>
                 <div class="purchase-items">
                     ${itemsList}
