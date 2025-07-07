@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrar Productos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Administración de Productos</h1>
+    <section>
+        <h2>Agregar Producto</h2>
+        <form id="addProductForm">
+            <input type="text" name="name" placeholder="Nombre" required>
+            <input type="text" name="description" placeholder="Descripción">
+            <input type="number" name="price" placeholder="Precio" step="0.01" required>
+            <input type="number" name="stock" placeholder="Stock" required>
+            <input type="text" name="sku" placeholder="SKU" required>
+            <input type="number" name="category_id" placeholder="ID Categoría" required>
+            <button type="submit">Agregar</button>
+        </form>
+    </section>
+    <section>
+        <h2>Productos</h2>
+        <button id="exportBtn">Exportar a Excel/CSV</button>
+        <table id="productsTable" border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>SKU</th>
+                    <th>ID Categoría</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Productos aquí -->
+            </tbody>
+        </table>
+    </section>
+    <section id="editSection" style="display:none;">
+        <h2>Editar Producto</h2>
+        <form id="editProductForm">
+            <input type="hidden" name="id" id="editId">
+            <input type="text" name="name" id="editName" placeholder="Nombre" required>
+            <input type="text" name="description" id="editDescription" placeholder="Descripción">
+            <input type="number" name="price" id="editPrice" placeholder="Precio" step="0.01" required>
+            <input type="number" name="stock" id="editStock" placeholder="Stock" required>
+            <input type="text" name="sku" id="editSku" placeholder="SKU" required>
+            <input type="number" name="category_id" id="editCategoryId" placeholder="ID Categoría" required>
+            <button type="submit">Guardar Cambios</button>
+            <button type="button" id="cancelEdit">Cancelar</button>
+        </form>
+    </section>
+    <script src="admin_productos.js"></script>
+</body>
+</html> 

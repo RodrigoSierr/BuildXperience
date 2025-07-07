@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrar Pedidos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Administración de Pedidos</h1>
+    <section>
+        <h2>Agregar Pedido</h2>
+        <form id="addOrderForm">
+            <input type="number" name="user_id" placeholder="ID Usuario" required>
+            <input type="number" name="total_amount" placeholder="Total" step="0.01" required>
+            <select name="status">
+                <option value="pending">Pendiente</option>
+                <option value="processing">Procesando</option>
+                <option value="shipped">Enviado</option>
+                <option value="delivered">Entregado</option>
+                <option value="cancelled">Cancelado</option>
+            </select>
+            <input type="text" name="shipping_address" placeholder="Dirección de Envío">
+            <input type="text" name="billing_address" placeholder="Dirección de Facturación">
+            <input type="text" name="shipping_method" placeholder="Método de Envío">
+            <input type="text" name="tracking_number" placeholder="Número de Seguimiento">
+            <input type="date" name="expected_delivery_date" placeholder="Fecha de Entrega">
+            <input type="text" name="notes" placeholder="Notas">
+            <select name="payment_method" required>
+                <option value="tarjeta">Tarjeta</option>
+                <option value="efectivo">Efectivo</option>
+            </select>
+            <button type="submit">Agregar</button>
+        </form>
+    </section>
+    <section>
+        <h2>Pedidos</h2>
+        <button id="exportBtn">Exportar a Excel/CSV</button>
+        <table id="ordersTable" border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ID Usuario</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Dirección Envío</th>
+                    <th>Dirección Facturación</th>
+                    <th>Método Envío</th>
+                    <th>Número Seguimiento</th>
+                    <th>Fecha Pedido</th>
+                    <th>Fecha Entrega</th>
+                    <th>Notas</th>
+                    <th>Método de Pago</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Pedidos aquí -->
+            </tbody>
+        </table>
+    </section>
+    <section id="editSection" style="display:none;">
+        <h2>Editar Pedido</h2>
+        <form id="editOrderForm">
+            <input type="hidden" name="id" id="editId">
+            <input type="number" name="user_id" id="editUserId" placeholder="ID Usuario" required>
+            <input type="number" name="total_amount" id="editTotalAmount" placeholder="Total" step="0.01" required>
+            <select name="status" id="editStatus">
+                <option value="pending">Pendiente</option>
+                <option value="processing">Procesando</option>
+                <option value="shipped">Enviado</option>
+                <option value="delivered">Entregado</option>
+                <option value="cancelled">Cancelado</option>
+            </select>
+            <input type="text" name="shipping_address" id="editShippingAddress" placeholder="Dirección de Envío">
+            <input type="text" name="billing_address" id="editBillingAddress" placeholder="Dirección de Facturación">
+            <input type="text" name="shipping_method" id="editShippingMethod" placeholder="Método de Envío">
+            <input type="text" name="tracking_number" id="editTrackingNumber" placeholder="Número de Seguimiento">
+            <input type="date" name="expected_delivery_date" id="editExpectedDeliveryDate" placeholder="Fecha de Entrega">
+            <input type="text" name="notes" id="editNotes" placeholder="Notas">
+            <select name="payment_method" id="editPaymentMethod" required>
+                <option value="tarjeta">Tarjeta</option>
+                <option value="efectivo">Efectivo</option>
+            </select>
+            <button type="submit">Guardar Cambios</button>
+            <button type="button" id="cancelEdit">Cancelar</button>
+        </form>
+    </section>
+    <script src="admin_pedidos.js"></script>
+</body>
+</html> 

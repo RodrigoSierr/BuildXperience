@@ -63,55 +63,52 @@
     </header>
 
     <!-- Contenido principal de la página de checkout -->
-    <main class="checkout-container">
+    <main class="checkout-main">
         <h1 class="checkout-title"><i class="fas fa-credit-card"></i> Finalizar Compra</h1>
-        <div class="checkout-content">
-            <!-- Sección de resumen del pedido -->
-            <section class="checkout-summary">
-                <h2><i class="fas fa-box"></i> Resumen del Pedido</h2>
-                <!-- Contenedor para los items del carrito -->
-                <div id="checkoutCartItems">
-                    <!-- Los productos del carrito se cargarán aquí dinámicamente -->
+        <div class="checkout-flex">
+            <form id="checkout-form" class="checkout-form-card">
+                <section class="form-section">
+                    <h2><i class="fas fa-truck"></i> Datos de Envío</h2>
+                    <label>Dirección de Envío
+                        <input type="text" name="direccion_envio" id="direccion_envio" required autocomplete="shipping street-address">
+                    </label>
+                    <label>Dirección de Facturación
+                        <input type="text" name="direccion_facturacion" id="direccion_facturacion" required autocomplete="billing street-address">
+                    </label>
+                    <label>Método de Envío
+                        <select name="metodo_envio" required>
+                            <option value="">Selecciona...</option>
+                            <option value="estandar">Estándar</option>
+                            <option value="express">Express</option>
+                        </select>
+                    </label>
+                </section>
+                <section class="form-section">
+                    <h2><i class="fas fa-money-check-alt"></i> Pago y Notas</h2>
+                    <label>Notas (opcional)
+                        <input type="text" name="notas" placeholder="¿Algo que debamos saber?">
+                    </label>
+                    <label>Método de Pago
+                        <select name="metodo_pago" required>
+                            <option value="tarjeta">Tarjeta</option>
+                            <option value="efectivo">Efectivo</option>
+                            <option value="paypal">PayPal</option>
+                        </select>
+                    </label>
+                </section>
+                <button type="submit" class="checkout-confirm-button"><i class="fas fa-check-circle"></i> Confirmar Pedido</button>
+                <a href="cart.html" class="checkout-back-cart"><i class="fas fa-arrow-left"></i> Volver al carrito</a>
+                <div id="checkout-message"></div>
+            </form>
+            <aside class="checkout-summary-card">
+                <h2><i class="fas fa-box"></i> Resumen del Carrito</h2>
+                <div id="cart-summary"></div>
+                <div class="summary-totals">
+                    <div class="summary-item"><span>Subtotal</span><span id="checkoutSubtotal">$0.00</span></div>
+                    <div class="summary-item"><span>Envío</span><span id="checkoutEnvio">$0.00</span></div>
+                    <div class="summary-item total"><span>Total</span><span id="cart-total">$0.00</span></div>
                 </div>
-                <!-- Resumen de costos -->
-                <div class="summary-item">
-                    <span>Subtotal</span>
-                    <span id="checkoutSubtotal">$0.00</span>
-                </div>
-                <div class="summary-item">
-                    <span>Envío</span>
-                    <span>$10.00</span>
-                </div>
-                <div class="summary-item total">
-                    <span>Total</span>
-                    <span id="checkoutTotal">$0.00</span>
-                </div>
-            </section>
-            <!-- Sección de datos de envío -->
-            <section class="checkout-user">
-                <h2><i class="fas fa-truck"></i> Datos de Envío</h2>
-                <!-- Formulario de datos de envío -->
-                <form id="shippingForm">
-                    <div class="form-group">
-                        <label for="name">Nombre Completo</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="address">Dirección</label>
-                        <input type="text" id="address" name="address" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="city">Ciudad</label>
-                        <input type="text" id="city" name="city" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Teléfono</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-                    <!-- Botón para confirmar la compra -->
-                    <button type="submit" class="checkout-confirm-button"><i class="fas fa-check-circle"></i> Confirmar Compra</button>
-                </form>
-            </section>
+            </aside>
         </div>
     </main>
 
@@ -148,8 +145,8 @@
     </footer>
 
     <!-- Scripts de JavaScript -->
-    <script src="cart.js"></script>
     <script src="auth.js"></script>
+    <script src="cart.js"></script>
     <script src="mobile.js"></script>
     <script src="checkout.js"></script>
 </body>

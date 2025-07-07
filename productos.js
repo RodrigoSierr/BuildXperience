@@ -5,15 +5,35 @@ document.addEventListener('DOMContentLoaded', function() {
     // Añadir event listeners a los botones de "Añadir al carrito"
     document.querySelectorAll('.product-button').forEach(button => {
         button.addEventListener('click', (e) => {
+            // Verificar login antes de agregar al carrito
+            const userData = window.getUserData ? window.getUserData() : null;
+            if (!userData || !userData.email) {
+                localStorage.setItem('redirectAfterLogin', 'productos.html');
+                window.location.href = 'login.html';
+                return;
+            }
+            // Limpiar carritos viejos
+            localStorage.removeItem('cart_null');
+            localStorage.removeItem('cart_guest');
             const productCard = e.target.closest('.product-card');
             if (productCard) {
                 const product = {
                     id: productCard.dataset.id,
                     name: productCard.querySelector('.product-name').textContent,
                     price: parseFloat(productCard.querySelector('.product-price').textContent.replace('$', '')),
-                    image: productCard.querySelector('.product-image').src
+                    image_url: productCard.querySelector('.product-image').src,
+                    quantity: 1
                 };
-                cart.addItem(product);
+                // Usar funciones globales
+                let cart = window.getCartGlobal ? window.getCartGlobal() : [];
+                const existing = cart.find(item => item.id == product.id);
+                if (existing) {
+                    existing.quantity += 1;
+                } else {
+                    cart.push(product);
+                }
+                if (window.saveCartGlobal) window.saveCartGlobal(cart);
+                if (window.updateCartCountGlobal) window.updateCartCountGlobal();
             }
         });
     });

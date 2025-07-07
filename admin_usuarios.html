@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrar Usuarios</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Administración de Usuarios</h1>
+    <section>
+        <h2>Agregar Usuario</h2>
+        <form id="addUserForm">
+            <input type="text" name="username" placeholder="Usuario" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <input type="text" name="first_name" placeholder="Nombre">
+            <input type="text" name="last_name" placeholder="Apellido">
+            <input type="text" name="phone" placeholder="Teléfono">
+            <input type="text" name="address" placeholder="Dirección">
+            <select name="role">
+                <option value="user">Usuario</option>
+                <option value="admin">Administrador</option>
+            </select>
+            <button type="submit">Agregar</button>
+        </form>
+    </section>
+    <section>
+        <h2>Usuarios</h2>
+        <button id="exportBtn">Exportar a Excel/CSV</button>
+        <table id="usersTable" border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Usuario</th>
+                    <th>Email</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Teléfono</th>
+                    <th>Dirección</th>
+                    <th>Rol</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Usuarios aquí -->
+            </tbody>
+        </table>
+    </section>
+    <section id="editSection" style="display:none;">
+        <h2>Editar Usuario</h2>
+        <form id="editUserForm">
+            <input type="hidden" name="id" id="editId">
+            <input type="text" name="username" id="editUsername" placeholder="Usuario" required>
+            <input type="email" name="email" id="editEmail" placeholder="Email" required>
+            <input type="password" name="password" id="editPassword" placeholder="Contraseña (dejar vacío para no cambiar)">
+            <input type="text" name="first_name" id="editFirstName" placeholder="Nombre">
+            <input type="text" name="last_name" id="editLastName" placeholder="Apellido">
+            <input type="text" name="phone" id="editPhone" placeholder="Teléfono">
+            <input type="text" name="address" id="editAddress" placeholder="Dirección">
+            <select name="role" id="editRole">
+                <option value="user">Usuario</option>
+                <option value="admin">Administrador</option>
+            </select>
+            <button type="submit">Guardar Cambios</button>
+            <button type="button" id="cancelEdit">Cancelar</button>
+        </form>
+    </section>
+    <script src="admin_usuarios.js"></script>
+</body>
+</html> 

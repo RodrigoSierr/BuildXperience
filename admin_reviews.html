@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrar Reseñas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Administración de Reseñas</h1>
+    <section>
+        <h2>Agregar Reseña</h2>
+        <form id="addReviewForm">
+            <input type="number" name="user_id" placeholder="ID Usuario" required>
+            <input type="number" name="product_id" placeholder="ID Producto" required>
+            <input type="number" name="rating" placeholder="Puntuación (1-5)" min="1" max="5" required>
+            <input type="text" name="comment" placeholder="Comentario">
+            <button type="submit">Agregar</button>
+        </form>
+    </section>
+    <section>
+        <h2>Reseñas</h2>
+        <table id="reviewsTable" border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ID Usuario</th>
+                    <th>ID Producto</th>
+                    <th>Puntuación</th>
+                    <th>Comentario</th>
+                    <th>Aprobada</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Reseñas aquí -->
+            </tbody>
+        </table>
+    </section>
+    <section id="editSection" style="display:none;">
+        <h2>Editar Reseña</h2>
+        <form id="editReviewForm">
+            <input type="hidden" name="id" id="editId">
+            <input type="number" name="user_id" id="editUserId" placeholder="ID Usuario" required>
+            <input type="number" name="product_id" id="editProductId" placeholder="ID Producto" required>
+            <input type="number" name="rating" id="editRating" placeholder="Puntuación (1-5)" min="1" max="5" required>
+            <input type="text" name="comment" id="editComment" placeholder="Comentario">
+            <select name="approved" id="editApproved">
+                <option value="0">No</option>
+                <option value="1">Sí</option>
+            </select>
+            <button type="submit">Guardar Cambios</button>
+            <button type="button" id="cancelEdit">Cancelar</button>
+        </form>
+    </section>
+    <script src="admin_reviews.js"></script>
+</body>
+</html> 

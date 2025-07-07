@@ -17,7 +17,6 @@ class UserProfile {
         this.renderUserInfo();
         this.setupEventListeners();
         this.setupTabNavigation();
-        this.applyInitialTheme(); // Aplicar el tema al cargar la página
     }
 
     renderUserInfo() {
@@ -54,7 +53,7 @@ class UserProfile {
             const preferences = this.user.preferences || {};
             const emailToggle = document.getElementById('email-notifications-toggle');
             const newsletterToggle = document.getElementById('newsletter-toggle');
-            const darkModeToggle = document.getElementById('dark-mode-toggle'); // Usar nuevo ID
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
 
             if(emailToggle) emailToggle.checked = preferences.emailNotifications || false;
             if(newsletterToggle) newsletterToggle.checked = preferences.newsletter || false;
@@ -66,16 +65,10 @@ class UserProfile {
                     const toggleSlider = toggle.parentElement.querySelector('.toggle-slider');
                      if (toggleSlider) {
                         if (toggle.checked) {
-                            // Calcular la traslación basada en el tamaño del toggle
-                            // Ancho del toggle (50px) - padding horizontal (4px*2) - ancho de la palanca (18px)
-                            // Para 50px width, 26px height, 18px palanca, 4px padding: translateX(50 - 4*2 - 18) = translateX(24px)
-                            // Para 40px width, 22px height, 16px palanca, 3px padding: translateX(40 - 3*2 - 16) = translateX(18px)
-                            // Para 60px width, 34px height, 26px palanca, 4px padding: translateX(60 - 4*2 - 26) = translateX(26px)
-                             const sliderWidth = toggleSlider.offsetWidth; // Ancho de la palanca
-                             const toggleContainerWidth = toggle.parentElement.offsetWidth; // Ancho total del switch (etiqueta)
-                             // Asumiendo un padding consistente de 4px en cada lado del slider para la palanca de 18px/26px, 3px para 16px
-                             let padding = 4; // Default para 50/60px
-                             if (sliderWidth === 16) padding = 3; // Para 40px toggle
+                             const sliderWidth = toggleSlider.offsetWidth;
+                             const toggleContainerWidth = toggle.parentElement.offsetWidth;
+                             let padding = 4;
+                             if (sliderWidth === 16) padding = 3;
 
                              const translateXValue = toggleContainerWidth - sliderWidth - (padding * 2);
                             toggleSlider.style.transform = `translateX(${translateXValue}px)`;
@@ -95,29 +88,10 @@ class UserProfile {
         }
     }
 
-     applyInitialTheme() {
-        // Leer el estado del modo oscuro desde localStorage
-        const darkModeEnabled = localStorage.getItem('darkModeEnabled') === 'true';
-
-        if (darkModeEnabled) {
-            document.body.classList.add('dark-mode');
-        } else {
-             document.body.classList.remove('dark-mode');
-        }
-        // Sincronizar el toggle del perfil si existe
-        const darkModeToggle = document.getElementById('dark-mode-toggle');
-        if (darkModeToggle) {
-            darkModeToggle.checked = darkModeEnabled;
-            // Trigger change event to visually update the slider
-            const event = new Event('change');
-            darkModeToggle.dispatchEvent(event);
-        }
-     }
-
     setupEventListeners() {
         try {
             // Avatar
-            const editAvatarBtn = document.querySelector('.edit-avatar-btn'); // Usar nueva clase
+            const editAvatarBtn = document.querySelector('.edit-avatar-btn');
             if (editAvatarBtn) {
                 editAvatarBtn.addEventListener('click', () => this.showAvatarUpload());
             }
@@ -126,7 +100,6 @@ class UserProfile {
             document.querySelectorAll('.edit-button').forEach(button => {
                 button.addEventListener('click', (e) => {
                     const infoItem = e.target.closest('.info-item');
-                    // Encontrar el info-value dentro del info-item
                     const valueElement = infoItem.querySelector('.info-value');
                     if (valueElement) {
                          this.makeEditable(valueElement);
@@ -136,12 +109,12 @@ class UserProfile {
                 });
             });
 
-            // Preferencias (adaptado a los nuevos IDs y lógica de visualización)
+            // Preferencias
             ['email-notifications-toggle', 'newsletter-toggle', 'dark-mode-toggle'].forEach(id => {
                 const toggleInput = document.getElementById(id);
                 if (toggleInput) {
                     toggleInput.addEventListener('change', (e) => {
-                        const preferenceKey = id.replace('-toggle', ''); // Obtener la clave de preferencia (email-notifications, newsletter, dark-mode)
+                        const preferenceKey = id.replace('-toggle', '');
                         const isChecked = e.target.checked;
 
                         // Guardar la preferencia
@@ -151,25 +124,15 @@ class UserProfile {
                          const currentToggleSlider = e.target.parentElement.querySelector('.toggle-slider');
                          if (currentToggleSlider) {
                             if (isChecked) {
-                                // Recalcular la traslación
-                                const sliderWidth = currentToggleSlider.offsetWidth; // Ancho de la palanca
-                                const toggleContainerWidth = e.target.parentElement.offsetWidth; // Ancho total del switch (etiqueta)
-                                let padding = 4; // Default para 50/60px
-                                if (sliderWidth === 16) padding = 3; // Para 40px toggle
+                                const sliderWidth = currentToggleSlider.offsetWidth;
+                                const toggleContainerWidth = e.target.parentElement.offsetWidth;
+                                let padding = 4;
+                                if (sliderWidth === 16) padding = 3;
                                 const translateXValue = toggleContainerWidth - sliderWidth - (padding * 2);
                                 currentToggleSlider.style.transform = `translateX(${translateXValue}px)`;
                             } else {
                                 currentToggleSlider.style.transform = 'translateX(0)';
                             }
-                         }
-
-                         // Si es el toggle de modo oscuro, aplicar el tema inmediatamente
-                         if (preferenceKey === 'dark-mode') {
-                             if (isChecked) {
-                                 document.body.classList.add('dark-mode');
-                             } else {
-                                 document.body.classList.remove('dark-mode');
-                             }
                          }
                     });
                 }
@@ -185,14 +148,14 @@ class UserProfile {
             }
 
             // Configuración 2FA
-            const setup2FAButton = document.querySelector('.setup-2fa-button'); // Usar nueva clase
+            const setup2FAButton = document.querySelector('.setup-2fa-button');
             if (setup2FAButton) {
                 setup2FAButton.addEventListener('click', () => {
                     this.setup2FA();
                 });
             }
 
-            // Botón Explorar Productos en historial vacío (nueva clase)
+            // Botón Explorar Productos en historial vacío
             const browseProductsBtn = document.querySelector('.browse-products-btn');
             if (browseProductsBtn) {
                  browseProductsBtn.addEventListener('click', (e) => {
@@ -216,19 +179,16 @@ class UserProfile {
              return;
         }
 
-        // Show the first tab content by default if no active tab is set
-        let initialActiveTab = 'info'; // Default tab
+        let initialActiveTab = 'info';
         const firstTabButton = document.querySelector('.tab-button');
         if (firstTabButton) {
              initialActiveTab = firstTabButton.dataset.tab || initialActiveTab;
         }
 
-        // Check if a tab is already marked as active in HTML
          const activeTabButton = document.querySelector('.tab-button.active');
          if (activeTabButton) {
              initialActiveTab = activeTabButton.dataset.tab || initialActiveTab;
          } else if (firstTabButton) {
-              // If no active class in HTML, add it to the first button
              firstTabButton.classList.add('active');
          }
 
@@ -239,13 +199,9 @@ class UserProfile {
             button.addEventListener('click', () => {
                 const tab = button.dataset.tab;
                 if (tab && tab !== this.activeTab) {
-                    // Actualizar botones
                     tabButtons.forEach(btn => btn.classList.remove('active'));
                     button.classList.add('active');
-
-                    // Actualizar secciones
                     this.showTab(tab);
-
                     this.activeTab = tab;
                 }
             });
@@ -267,24 +223,21 @@ class UserProfile {
 
     makeEditable(element) {
         const currentValue = element.textContent;
-        const infoItem = element.closest('.info-item'); // Obtener el contenedor principal del item
-        if (!infoItem) return; // Salir si no encuentra el contenedor
+        const infoItem = element.closest('.info-item');
+        if (!infoItem) return;
 
-        // Eliminar el botón de edición actual
         const editButton = infoItem.querySelector('.edit-button');
         if (editButton) editButton.style.display = 'none';
 
-        // Crear y añadir el input
         const input = document.createElement('input');
         input.type = 'text';
         input.value = currentValue;
         input.className = 'edit-input';
-        element.textContent = ''; // Limpiar el contenido actual del p.info-value
+        element.textContent = '';
         element.appendChild(input);
 
-        // Crear y añadir los botones de guardar y cancelar dentro de un contenedor si es necesario, o directamente después del input
          const actionsContainer = document.createElement('div');
-         actionsContainer.className = 'edit-actions'; // Nueva clase para contenedor de botones
+         actionsContainer.className = 'edit-actions';
 
         const saveButton = document.createElement('button');
         saveButton.innerHTML = '<i class="fas fa-check"></i>';
@@ -296,38 +249,35 @@ class UserProfile {
 
          actionsContainer.appendChild(saveButton);
          actionsContainer.appendChild(cancelButton);
-         element.appendChild(actionsContainer); // Añadir el contenedor de acciones después del input
+         element.appendChild(actionsContainer);
 
         input.focus();
 
         saveButton.addEventListener('click', () => {
             const newValue = input.value.trim();
-            // Obtener el campo a actualizar desde el atributo data-field del info-item
             const field = infoItem.dataset.field;
             if (field && newValue && newValue !== currentValue) {
                 this.updateUserInfo(field, newValue);
-                this.restoreElement(element, newValue); // Restaurar con el nuevo valor
+                this.restoreElement(element, newValue);
             } else {
-                 this.restoreElement(element, currentValue); // Restaurar con el valor original si no hay cambio o es vacío
+                 this.restoreElement(element, currentValue);
             }
         });
 
         cancelButton.addEventListener('click', () => {
-            this.restoreElement(element, currentValue); // Restaurar con el valor original
+            this.restoreElement(element, currentValue);
         });
     }
 
     restoreElement(element, value) {
-        element.textContent = value; // Restaurar el texto
+        element.textContent = value;
 
-        // Eliminar el input y los botones
         const input = element.querySelector('.edit-input');
         if(input) input.remove();
 
         const actionsContainer = element.querySelector('.edit-actions');
         if(actionsContainer) actionsContainer.remove();
 
-        // Mostrar el botón de edición original de nuevo
         const infoItem = element.closest('.info-item');
         const editButton = infoItem.querySelector('.edit-button');
         if (editButton) editButton.style.display = 'block';
@@ -335,13 +285,10 @@ class UserProfile {
 
     updateUserInfo(field, value) {
         try {
-            if (!this.user) return; // Asegurar que el usuario está cargado
-
-            // Validaciones básicas si es necesario (ej: email format)
+            if (!this.user) return;
 
             this.user[field] = value;
             
-            // Guardar en localStorage o sessionStorage (mantener lógica existente)
             const storage = document.querySelector('#remember')?.checked ? localStorage : sessionStorage;
             storage.setItem('userData', JSON.stringify(this.user));
 
@@ -373,24 +320,18 @@ class UserProfile {
             return;
         }
 
-        // Aquí iría la lógica de cambio de contraseña (ej: enviar a un backend)
         console.log('Attempting to change password...');
-        // Simulación de éxito:
         this.showNotification('Contraseña actualizada correctamente');
-        document.getElementById('password-form')?.reset(); // Resetear el formulario si existe
-
-        // En un caso real, aquí manejarías el envío seguro de contraseñas
+        document.getElementById('password-form')?.reset();
     }
 
     setup2FA() {
-        // Aquí iría la lógica de configuración de 2FA
         this.showNotification('Función de 2FA en desarrollo');
         console.log('Configurar 2FA clicked');
     }
 
     showAvatarUpload() {
         console.log('Edit Avatar clicked');
-        // Lógica existente para subir avatar
         const input = document.createElement('input');
         input.type = 'file';
         input.accept = 'image/*';
@@ -416,7 +357,6 @@ class UserProfile {
             }
             if(avatarPlaceholder) avatarPlaceholder.style.display = 'none';
 
-            // Guardar el avatar en el usuario (como Data URL, considerar subir a un servidor en producción)
             if (this.user) {
                  this.user.avatar = e.target?.result || null;
                  const storage = document.querySelector('#remember')?.checked ? localStorage : sessionStorage;
@@ -434,23 +374,21 @@ class UserProfile {
 
     updatePreference(key, value) {
         try {
-            if (!this.user) return; // Asegurar que el usuario está cargado
+            if (!this.user) return;
 
             if (!this.user.preferences) {
                 this.user.preferences = {};
             }
             this.user.preferences[key] = value;
             
-            // Guardar el estado del modo oscuro específicamente en localStorage para sincronización global
             if (key === 'dark-mode') {
                 if (value) {
                     localStorage.setItem('darkModeEnabled', 'true');
                 } else {
-                    localStorage.removeItem('darkModeEnabled'); // Eliminar para que no esté presente si es falso
+                    localStorage.removeItem('darkModeEnabled');
                 }
             }
 
-            // Guardar todas las preferencias del usuario en localStorage o sessionStorage
             const storage = document.querySelector('#remember')?.checked ? localStorage : sessionStorage;
             storage.setItem('userData', JSON.stringify(this.user));
 
@@ -470,7 +408,6 @@ class UserProfile {
              return;
         }
 
-        // Clear previous content
         purchaseHistoryContainer.innerHTML = '';
 
         if (!this.user || !this.user.purchaseHistory || this.user.purchaseHistory.length === 0) {
@@ -481,7 +418,6 @@ class UserProfile {
                     <a href="productos.html" class="browse-products-btn">Ir a comprar</a>
                 </div>
             `;
-            // Ensure the event listener is added to the new button
             const browseProductsBtn = purchaseHistoryContainer.querySelector('.browse-products-btn');
             if (browseProductsBtn) {
                  browseProductsBtn.addEventListener('click', (e) => {
@@ -493,21 +429,16 @@ class UserProfile {
             return;
         }
 
-        // Render purchase cards
         purchaseHistoryContainer.innerHTML = this.user.purchaseHistory.map(purchase => this.createPurchaseCard(purchase)).join('');
 
-         // Re-add event listener for the new browse button if it exists after rendering cards (shouldn't happen with current logic but good practice)
-         const browseProductsBtn = document.querySelector('.browse-products-btn'); // Select from the whole document just in case
-         if (browseProductsBtn && !browseProductsBtn.dataset.listenerAdded) { // Add flag to prevent multiple listeners
+         const browseProductsBtn = document.querySelector('.browse-products-btn');
+         if (browseProductsBtn && !browseProductsBtn.dataset.listenerAdded) {
               browseProductsBtn.addEventListener('click', (e) => {
                  e.preventDefault();
                  window.location.href = browseProductsBtn.href;
               });
-              browseProductsBtn.dataset.listenerAdded = 'true'; // Mark as added
+              browseProductsBtn.dataset.listenerAdded = 'true';
          }
-
-
-
     }
 
     createPurchaseCard(purchase) {
@@ -578,7 +509,7 @@ class UserProfile {
              return;
         }
         notification.textContent = message;
-        notification.className = `notification ${type}`; // Permite 'success', 'error', etc.
+        notification.className = `notification ${type}`;
         notification.style.display = 'block';
 
         setTimeout(() => {
@@ -587,15 +518,11 @@ class UserProfile {
     }
 }
 
-// Inicializar el perfil cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
-    // Asegurarse de que auth.js haya cargado y getuserData esté disponible
-    // Esto asume que auth.js se carga antes en perfil.html
     if (window.getUserData) {
         new UserProfile();
     } else {
         console.error('auth.js or getUserData function not loaded.');
-        // O manejar esto de otra manera, quizás esperar un evento o mostrar un mensaje de error al usuario
          document.body.innerHTML = '<p>Error: No se pudieron cargar las funciones de autenticación.</p>';
     }
-}); 
+});

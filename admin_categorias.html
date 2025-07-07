@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrar Categorías</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Administración de Categorías</h1>
+    <section>
+        <h2>Agregar Categoría</h2>
+        <form id="addCategoryForm">
+            <input type="text" name="name" placeholder="Nombre" required>
+            <input type="text" name="description" placeholder="Descripción">
+            <input type="number" name="parent_id" placeholder="ID Categoría Padre (opcional)">
+            <input type="text" name="slug" placeholder="Slug (único)">
+            <button type="submit">Agregar</button>
+        </form>
+    </section>
+    <section>
+        <h2>Categorías</h2>
+        <table id="categoriesTable" border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>ID Padre</th>
+                    <th>Slug</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Categorías aquí -->
+            </tbody>
+        </table>
+    </section>
+    <section id="editSection" style="display:none;">
+        <h2>Editar Categoría</h2>
+        <form id="editCategoryForm">
+            <input type="hidden" name="id" id="editId">
+            <input type="text" name="name" id="editName" placeholder="Nombre" required>
+            <input type="text" name="description" id="editDescription" placeholder="Descripción">
+            <input type="number" name="parent_id" id="editParentId" placeholder="ID Categoría Padre (opcional)">
+            <input type="text" name="slug" id="editSlug" placeholder="Slug (único)">
+            <button type="submit">Guardar Cambios</button>
+            <button type="button" id="cancelEdit">Cancelar</button>
+        </form>
+    </section>
+    <script src="admin_categorias.js"></script>
+</body>
+</html> 
