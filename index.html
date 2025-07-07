@@ -144,6 +144,18 @@
         </section>
     </main>
 
+    <!-- Apartado RDF -->
+    <section id="rdf-section" style="max-width:800px;margin:2rem auto;padding:1rem;background:#f8f8f8;border-radius:8px;box-shadow:0 2px 8px #0001;">
+        <h2 style="font-size:1.2rem;margin-bottom:0.5rem;">Catálogo RDF</h2>
+        <pre id="rdf-content" style="overflow-x:auto;max-height:300px;background:#222;color:#eee;padding:1em;border-radius:6px;font-size:0.95em;"></pre>
+    </section>
+
+    <!-- Tripletas RDF -->
+    <section id="tripletas-section" style="max-width:800px;margin:2rem auto;padding:1rem;background:#f4f4f4;border-radius:8px;box-shadow:0 2px 8px #0001;">
+        <h2 style="font-size:1.2rem;margin-bottom:0.5rem;">Tripletas RDF</h2>
+        <div id="tripletas-content" style="overflow-x:auto;"></div>
+    </section>
+
     <footer id="contacto">
         <div class="footer-content">
             <div class="footer-section">
@@ -184,11 +196,49 @@
     <script src="auth.js"></script>
     <script src="cart.js"></script>
     <script>
+        // Depuración: mostrar el usuario guardado en localStorage al cargar index.html
+        console.log('userData en index:', localStorage.getItem('userData'));
+        // No redirigir automáticamente al login en index.html
         function addToCartAndRedirect(product) {
             if (cart) {
                 cart.addItem(product);
                 window.location.href = 'cart.html';
             }
+        }
+        // Mostrar el RDF en el apartado
+        fetch('productos.rdf')
+            .then(response => response.ok ? response.text() : 'No se pudo cargar el RDF')
+            .then(data => {
+                document.getElementById('rdf-content').textContent = data;
+                // Extraer y mostrar tripletas RDF
+                mostrarTripletasRDF(data);
+            })
+            .catch(() => {
+                document.getElementById('rdf-content').textContent = 'No se pudo cargar el RDF.';
+                document.getElementById('tripletas-content').textContent = 'No se pudieron extraer las tripletas.';
+            });
+
+        function mostrarTripletasRDF(xmlString) {
+            let parser = new DOMParser();
+            let xmlDoc = parser.parseFromString(xmlString, 'application/xml');
+            let descriptions = xmlDoc.getElementsByTagName('rdf:Description');
+            let tripletas = [];
+            for (let desc of descriptions) {
+                let sujeto = desc.getAttribute('rdf:about');
+                for (let child of desc.children) {
+                    let predicado = child.tagName;
+                    let objeto = child.textContent;
+                    tripletas.push({ sujeto, predicado, objeto });
+                }
+            }
+            // Crear tabla HTML
+            let html = '<table style="width:100%;border-collapse:collapse;font-size:0.97em;">';
+            html += '<thead><tr><th style="border-bottom:1px solid #ccc;padding:6px 8px;">Sujeto</th><th style="border-bottom:1px solid #ccc;padding:6px 8px;">Predicado</th><th style="border-bottom:1px solid #ccc;padding:6px 8px;">Objeto</th></tr></thead><tbody>';
+            for (let t of tripletas) {
+                html += `<tr><td style="border-bottom:1px solid #eee;padding:4px 8px;">${t.sujeto}</td><td style="border-bottom:1px solid #eee;padding:4px 8px;">${t.predicado}</td><td style="border-bottom:1px solid #eee;padding:4px 8px;">${t.objeto}</td></tr>`;
+            }
+            html += '</tbody></table>';
+            document.getElementById('tripletas-content').innerHTML = html;
         }
     </script>
 </body>

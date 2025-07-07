@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- Metadatos básicos y configuración del documento -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión - BuildXperience</title>
-    <!-- Enlaces a hojas de estilo -->
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="auth.css">
-    <!-- Enlace a Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <script>
-        // Script para aplicar el modo oscuro al cargar la página ANTES de que se renderice el contenido
+        // Activar modo oscuro antes de cargar el contenido
         window.addEventListener('DOMContentLoaded', function() {
             const isDarkModeEnabled = localStorage.getItem('darkModeEnabled') === 'true';
             if (isDarkModeEnabled) {
@@ -24,7 +21,7 @@
     </script>
 </head>
 <body>
-    <!-- Encabezado de la página con navegación -->
+    <!-- Encabezado -->
     <header>
         <nav>
             <div class="logo">
@@ -55,6 +52,7 @@
         </nav>
     </header>
 
+    <!-- Formulario de login -->
     <main class="auth-container" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('Imágenes/Logos/login.jpg') center/cover no-repeat fixed;">
         <div class="auth-card">
             <h2>Iniciar Sesión</h2>
@@ -92,10 +90,10 @@
             <div class="footer-section">
                 <h3>Síguenos</h3>
                 <div class="social-links">
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
             <div class="footer-section">
@@ -118,20 +116,29 @@
         </div>
     </footer>
 
-    <script src="auth.js"></script>
+    <!-- Scripts -->
+    <script src="auth.js?v=2"></script>
     <script src="mobile.js"></script>
     <script>
-    document.getElementById('directAccessButton').onclick = function() {
-        // Simula un login de invitado
-        const userData = {
-            id: 0,
-            email: 'invitado@demo.com',
-            username: 'Invitado',
-            timestamp: new Date().getTime()
+        // Acceso directo como invitado
+        document.getElementById('directAccessButton').onclick = function() {
+            const userData = {
+                id: 0,
+                email: 'invitado@demo.com',
+                username: 'Invitado',
+                timestamp: new Date().getTime()
+            };
+            localStorage.setItem('userData', JSON.stringify(userData));
+            window.location.href = 'checkout.html';
         };
-        sessionStorage.setItem('userData', JSON.stringify(userData));
-        window.location.href = 'checkout.html';
-    };
+
+        // Marcar checkbox si ya hay sesión en localStorage
+        document.addEventListener('DOMContentLoaded', () => {
+            const rememberMeCheckbox = document.getElementById('rememberMe');
+            if (rememberMeCheckbox && localStorage.getItem('userData')) {
+                rememberMeCheckbox.checked = true;
+            }
+        });
     </script>
 </body>
-</html> 
+</html>
